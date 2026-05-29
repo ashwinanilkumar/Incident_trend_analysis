@@ -1,0 +1,35 @@
+# ── Python ──────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+
+# ── Virtual Environment ──────────────────────────────────────────────────────
+venv/
+env/
+.env/
+.venv/
+
+# ── ML Model Cache (auto-generated — rebuild with prebuild_models.py) ────────
+.cache/
+*.pkl
+*.joblib
+
+# ── OS / Editor ──────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+
+# ── Claude AI assistant memory (local only) ──────────────────────────────────
+.claude/
+
+# ── Sensitive / large uploads (team members add their own data locally) ───────
+# Uncomment the line below if you do NOT want to share historical training data:
+# historical/
+
+# ── Streamlit local dev overrides (keep .streamlit/config.toml committed) ────
+# .streamlit/secrets.toml is excluded if ever used for API keys
+.streamlit/secrets.toml

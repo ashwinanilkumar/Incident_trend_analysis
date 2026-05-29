@@ -1,0 +1,8 @@
+[server]
+# Disables the file-change watcher that crawls all imported packages
+# (including transformers/torch) and spams torchvision/aria warnings.
+# This is a classification tool, not a dev server — hot-reload is not needed.
+fileWatcherType = "none"
+
+[browser]
+gatherUsageStats = false

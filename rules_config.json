@@ -1,0 +1,3595 @@
+{
+  "modules": [
+    "Dashboard",
+    "Customer",
+    "Agreement",
+    "Payment",
+    "Inventory",
+    "Account Management",
+    "Store",
+    "Operations",
+    "Reporting",
+    "Menu / Container",
+    "Customer Service",
+    "Data Services",
+    "BigPanda"
+  ],
+  "issue_types": [
+    "UI/Display Error",
+    "Data Discrepancy",
+    "Payment Processing Failure",
+    "API / Service Error",
+    "Access / Permission Issue",
+    "Authentication / SSO Issue",
+    "Data Sync / Integration Failure",
+    "Business Logic Error",
+    "Configuration Issue",
+    "Document / Receipt Error",
+    "Performance / Timeout",
+    "Inventory Management Error",
+    "Translation / Localization",
+    "EOD / Batch Job Failure",
+    "CCCB / Chargeback",
+    "BigPanda",
+    "Cancel the Manual PO",
+    "Cancel the RMS PO",
+    "Unable to receive the Purchase order",
+    "Unable to reverse PO",
+    "PO related issue",
+    "Chargeoff",
+    "Switch Out Issue",
+    "Confirm delivery Issue",
+    "AutoPay",
+    "Payment reversal",
+    "Receipt Reversal Issue",
+    "Receipt Mismatch",
+    "Payment mode Issue",
+    "Payment Error",
+    "Payment issue",
+    "Payment Query",
+    "Tax Issue",
+    "Chargeback",
+    "Store Access",
+    "PIN reset",
+    "Drop reconciliation",
+    "Menu Permission Access",
+    "Daily task",
+    "Training Issue",
+    "Agreement Void Issue",
+    "Agreement Transfer Issue",
+    "Agreement Creation Issue",
+    "Agreement Status",
+    "Agreement Issue",
+    "Agreement delivery Issue",
+    "RAC exchange",
+    "DQ-Agreement",
+    "DQ-Inventory",
+    "Inventory Status Issue",
+    "Inventory Transfer Issue",
+    "Inventory Mismatch",
+    "Customer Login Issue (EXT)",
+    "Customer Issue",
+    "Customer Mismatch",
+    "Merge Customer",
+    "Customer level change request",
+    "Customer information issue",
+    "Duplicate customers record",
+    "Promo issue",
+    "Promo request",
+    "Pricing Issue",
+    "Pricing request",
+    "2 way sync",
+    "Report Request",
+    "Report access",
+    "Report discrepancy",
+    "Daily Report Issue",
+    "Account Report Request",
+    "EOM",
+    "One Time Issue",
+    "Monitoring",
+    "Duplicate ticket",
+    "Intermittent Issue",
+    "Query",
+    "Unable to Save card details",
+    "search Issue"
+  ],
+  "rules": [
+    {
+      "keywords": [
+        "bigpanda incident",
+        "bigpanda alert",
+        "bigpanda",
+        "big panda incident"
+      ],
+      "module": "BigPanda",
+      "type_of_issue": "BigPanda",
+      "priority": 200,
+      "description": "BigPanda automated monitoring alerts - highest priority, overrides all other rules. Code-level pre-filter also handles this if BigPanda appears in Short Description."
+    },
+    {
+      "keywords": [
+        "no store is currently assigned",
+        "no stores assigned to user",
+        "no store assigned to user",
+        "no store currently assigned",
+        "not having racpad access no store",
+        "no stores assigned",
+        "need current store access in racpad",
+        "need racpad access for district",
+        "need racpad access for entire district",
+        "csmticket access in racpad",
+        "csm ticketing access",
+        "remove access to previous stores",
+        "previous store manager should not have access",
+        "previous store manager still appearing",
+        "still showing old store needs to login to new store"
+      ],
+      "module": "Store",
+      "type_of_issue": "Access / Permission Issue",
+      "priority": 115,
+      "description": "Store access / no-store-assigned issues — employees unable to log in or access RACPAD because store assignment is missing or incorrect"
+    },
+    {
+      "keywords": [
+        "unable to remove auto pay",
+        "unable to remove autopay",
+        "autopay continued to pull",
+        "autopay continues to pull",
+        "enrolling in auto pay not processing",
+        "auto pay not processing",
+        "autopay not processing",
+        "incorrect auto pay card",
+        "wrong autopay card"
+      ],
+      "module": "Payment",
+      "type_of_issue": "Business Logic Error",
+      "priority": 113,
+      "description": "AutoPay enrollment or removal issues — incorrect card, not processing, or continuing after cancellation"
+    },
+    {
+      "keywords": [
+        "need to remove the cccb",
+        "remove cccb",
+        "cccb needs to be removed",
+        "dispute the cccb",
+        "chargeback removal"
+      ],
+      "module": "Payment",
+      "type_of_issue": "CCCB / Chargeback",
+      "priority": 112,
+      "description": "CCCB chargeback removal request"
+    },
+    {
+      "keywords": [
+        "payment pulled from customer bank account but not processed",
+        "payment not showing on our end but pulled",
+        "payment taken but not showing",
+        "payment taken but not reflected",
+        "payment taken but not appearing",
+        "payment processed on customer side but not in racpad",
+        "payment deducted but not posted"
+      ],
+      "module": "Payment",
+      "type_of_issue": "Data Sync / Integration Failure",
+      "priority": 112,
+      "description": "Payment sync issue — charge reflected in bank but not appearing in RACPAD"
+    },
+    {
+      "keywords": [
+        "payment deducted twice",
+        "charged twice",
+        "double payment",
+        "duplicate payment",
+        "payment taken twice",
+        "billed twice"
+      ],
+      "module": "Payment",
+      "type_of_issue": "Payment Processing Failure",
+      "priority": 112,
+      "description": "Duplicate/double payment charged to customer"
+    },
+    {
+      "keywords": [
+        "unable to refund",
+        "need to refund this payment",
+        "need to refunded back to suspense",
+        "refund back to suspense",
+        "cannot refund",
+        "refund not eligible",
+        "not eligible for refund",
+        "refund wl deposit",
+        "refund deposit"
+      ],
+      "module": "Payment",
+      "type_of_issue": "Payment Processing Failure",
+      "priority": 111,
+      "description": "Payment refund failures — unable to refund or system shows not eligible"
+    },
+    {
+      "keywords": [
+        "rate reduction eligible but does not reduce",
+        "rate reduction not applying",
+        "rate supposed to be",
+        "rate showing incorrect amount",
+        "incorrect rate on agreement",
+        "agreement rate is wrong",
+        "agreement showing wrong rate",
+        "rate should be different"
+      ],
+      "module": "Agreement",
+      "type_of_issue": "Business Logic Error",
+      "priority": 111,
+      "description": "Agreement rate reduction or incorrect rate displayed — expected rate not matching actual rate"
+    },
+    {
+      "keywords": [
+        "no customer assigned to this agreement",
+        "error no assigned to active customer",
+        "cannot sign agreement no customer",
+        "sign agreement error no customer",
+        "no customer linked to agreement"
+      ],
+      "module": "Agreement",
+      "type_of_issue": "Business Logic Error",
+      "priority": 110,
+      "description": "Agreement actions blocked because no customer is linked — typically affects agreement signing or delivery confirmation"
+    },
+    {
+      "keywords": [
+        "unable to void the special order",
+        "cannot void the special order",
+        "void special order",
+        "special order void issue"
+      ],
+      "module": "Agreement",
+      "type_of_issue": "Business Logic Error",
+      "priority": 110,
+      "description": "Special order agreement cannot be voided"
+    },
+    {
+      "keywords": [
+        "unable to confirm customer order",
+        "cannot confirm customer order",
+        "confirm customer order error"
+      ],
+      "module": "Agreement",
+      "type_of_issue": "Business Logic Error",
+      "priority": 110,
+      "description": "Customer order confirmation failure in RACPAD"
+    },
+    {
+      "keywords": [
+        "getting duplicate names in account management",
+        "duplicate names in account management",
+        "customers showing multiple times in account management",
+        "showing multiple times in account management"
+      ],
+      "module": "Account Management",
+      "type_of_issue": "Data Discrepancy",
+      "priority": 110,
+      "description": "Duplicate customer records appearing in Account Management module"
+    },
+    {
+      "keywords": [
+        "unable to fetch field sheets",
+        "cannot fetch field sheets",
+        "field sheets error",
+        "field sheets not loading",
+        "field sheet issue"
+      ],
+      "module": "Account Management",
+      "type_of_issue": "UI/Display Error",
+      "priority": 110,
+      "description": "Field sheets failing to load in Account Management"
+    },
+    {
+      "keywords": [
+        "rental agreement showing different name",
+        "agreement showing different customer name",
+        "wrong customer name on agreement",
+        "agreement has incorrect customer name"
+      ],
+      "module": "Agreement",
+      "type_of_issue": "Data Discrepancy",
+      "priority": 108,
+      "description": "Agreement showing incorrect customer name — data discrepancy"
+    },
+    {
+      "keywords": [
+        "daily report discrepancy",
+        "racpad daily report issue",
+        "daily report mismatch in racpad"
+      ],
+      "module": "Reporting",
+      "type_of_issue": "Data Discrepancy",
+      "priority": 108,
+      "description": "Daily report data discrepancy in RACPAD reporting module"
+    },
+    {
+      "keywords": [
+        "error while searching past drop receipts",
+        "error searching drop receipts",
+        "past drop receipts not found",
+        "drop receipt search error"
+      ],
+      "module": "Reporting",
+      "type_of_issue": "Data Discrepancy",
+      "priority": 108,
+      "description": "Error when searching for past drop receipts in reporting"
+    },
+    {
+      "keywords": [
+        "please remove po m",
+        "remove po#m",
+        "po m needs to be removed",
+        "cancel po m",
+        "manual po m needs to be cancelled",
+        "remove manual po m"
+      ],
+      "module": "Inventory",
+      "type_of_issue": "Cancel the Manual PO",
+      "priority": 108,
+      "description": "Explicit cancel/remove request for Manual PO (M-prefix number confirms it is a manual PO, not a regular numeric PO)"
+    },
+    {
+      "keywords": [
+        "refer a friend button faded",
+        "refer a friend button cannot be selected",
+        "refer a friend button not working",
+        "refer friend button disabled"
+      ],
+      "module": "Customer",
+      "type_of_issue": "UI/Display Error",
+      "priority": 105,
+      "description": "Refer-a-friend button is faded/disabled in customer portal"
+    },
+    {
+      "keywords": [
+        "payment | customer refund",
+        "payment | reverse payment",
+        "unable to reverse the payment",
+        "receipt reversal failure",
+        "receipt reversal",
+        "reverse the payment",
+        "payment refund",
+        "need to void agreement for refund",
+        "void for payment reversal"
+      ],
+      "module": "Payment",
+      "type_of_issue": "Payment Processing Failure",
+      "priority": 107,
+      "description": "Payment reversal or refund - even if void agreement is mentioned, the purpose is payment reversal"
+    },
+    {
+      "keywords": [
+        "web order items not delivered but payments processed",
+        "items not delivered but payments",
+        "payments processed but not delivered"
+      ],
+      "module": "Payment",
+      "type_of_issue": "Payment Processing Failure",
+      "priority": 107,
+      "description": "Web order payment issue - items not delivered but payments taken"
+    },
+    {
+      "keywords": [
+        "no active customer tied to the agreement",
+        "no active customer",
+        "no customer attached to agreement",
+        "not assigned to active customer",
+        "no active customers tied"
+      ],
+      "module": "Agreement",
+      "type_of_issue": "Business Logic Error",
+      "priority": 105,
+      "description": "Error when performing actions on agreement but system reports no active customer linked - typically during delivery confirmation"
+    },
+    {
+      "keywords": [
+        "confirm to return",
+        "unable to return",
+        "can not confirm to return",
+        "return the item in the system"
+      ],
+      "module": "Agreement",
+      "type_of_issue": "Business Logic Error",
+      "priority": 100,
+      "description": "Unable to confirm return of item in system"
+    },
+    {
+      "keywords": [
+        "void agreement payment reversal",
+        "void for refund",
+        "void agreement refund"
+      ],
+      "module": "Payment",
+      "type_of_issue": "Payment Processing Failure",
+      "priority": 102,
+      "description": "Void agreement needed for payment reversal/refund purposes"
+    },
+    {
+      "keywords": [
+        "void agreement",
+        "agreement void",
+        "will not let me void",
+        "cannot void",
+        "won't let me void"
+      ],
+      "module": "Agreement",
+      "type_of_issue": "Business Logic Error",
+      "priority": 100,
+      "description": "Void agreement - typically for payment reversal purposes"
+    },
+    {
+      "keywords": [
+        "pending switch out",
+        "pending switchout",
+        "pending switch-out",
+        "stuck in switch out",
+        "stuck in switchout",
+        "stuck in pending switchout",
+        "stuck in pending switch out"
+      ],
+      "module": "Inventory",
+      "type_of_issue": "Inventory Management Error",
+      "priority": 100,
+      "description": "Item stuck in pending switch out status, cannot confirm or cancel"
+    },
+    {
+      "keywords": [
+        "switch out cancellation",
+        "switchout cancellation",
+        "switch-out cancellation",
+        "cancel switch out",
+        "cancel switchout",
+        "cancel the switch out",
+        "cancel the switchout"
+      ],
+      "module": "Inventory",
+      "type_of_issue": "Inventory Status Issue",
+      "priority": 100,
+      "description": "Unable to cancel a switch out on an agreement"
+    },
+    {
+      "keywords": [
+        "ldw cancellation"
+      ],
+      "module": "Agreement",
+      "type_of_issue": "Business Logic Error",
+      "priority": 100
+    },
+    {
+      "keywords": [
+        "brought back from charged off",
+        "bring back from charged off",
+        "back from charged off status",
+        "reverse charge off"
+      ],
+      "module": "Inventory",
+      "type_of_issue": "Inventory Management Error",
+      "priority": 98,
+      "description": "Request to reverse charge-off and bring item back to active status"
+    },
+    {
+      "keywords": [
+        "payment reversal",
+        "reverse payment",
+        "reverse the payment",
+        "receipt reversal",
+        "failed to reverse",
+        "grayed out",
+        "greyed out reverse",
+        "unable to reverse",
+        "reverse button greyed",
+        "won't let me reverse"
+      ],
+      "module": "Payment",
+      "type_of_issue": "Payment Processing Failure",
+      "priority": 97,
+      "description": "Store unable to reverse payment/receipt - reverse button greyed out or error when attempting"
+    },
+    {
+      "keywords": [
+        "trifecta charging tax",
+        "trifecta tax",
+        "trifecta promo tax",
+        "promo code charging tax",
+        "tax on free time",
+        "0 down but charging tax",
+        "tax should be 0"
+      ],
+      "module": "Agreement",
+      "type_of_issue": "Business Logic Error",
+      "priority": 95,
+      "description": "TRIFECTA promo code is incorrectly charging tax when it should be $0"
+    },
+    {
+      "keywords": [
+        "unable to retrieve transfer list",
+        "retrieve transfer list"
+      ],
+      "module": "Inventory",
+      "type_of_issue": "API / Service Error",
+      "priority": 95,
+      "description": "BigPanda: htinventorytransfer Lambda 500 error"
+    },
+    {
+      "keywords": [
+        "aws batch error",
+        "aws_ess",
+        "aws batch",
+        "batch error alerts"
+      ],
+      "module": "Operations",
+      "type_of_issue": "EOM",
+      "priority": 95,
+      "description": "BigPanda: AWS Batch job errors in production"
+    },
+    {
+      "keywords": [
+        "racpad access",
+        "access not available",
+        "no access",
+        "permission denied",
+        "don't have permission",
+        "you don't have permission",
+        "not having racpad access",
+        "racpad access for",
+        "store assignment",
+        "no stores",
+        "store not showing",
+        "no stores displayed",
+        "no stores assigned",
+        "no store is currently assigned",
+        "store access",
+        "revoke access",
+        "remove access",
+        "remove the access",
+        "additional store access",
+        "access revoked",
+        "transferred to new store",
+        "old store access",
+        "previous store",
+        "new store access",
+        "old store still showing",
+        "access to old store",
+        "previous store access",
+        "still able to log into old store",
+        "seeing old store",
+        "dual store access",
+        "access to 2 stores",
+        "access to two stores",
+        "access restricted to only their store",
+        "user having access to old store"
+      ],
+      "module": "Store",
+      "type_of_issue": "Access / Permission Issue",
+      "priority": 95,
+      "description": "Merged: RACPAD access, store assignment, revoke access, old store access, transferred store access"
+    },
+    {
+      "keywords": [
+        "okta",
+        "sso",
+        "single sign on",
+        "login issue",
+        "login failure",
+        "unable to login",
+        "can't log in",
+        "cant log in",
+        "can not log in",
+        "not able to login",
+        "sso issue",
+        "sso login",
+        "okta error",
+        "okta login",
+        "cognito",
+        "cognito error",
+        "no stores showing after login",
+        "stores not showing after login",
+        "login shows no stores"
+      ],
+      "module": "Store",
+      "type_of_issue": "Authentication / SSO Issue",
+      "priority": 95,
+      "description": "Merged: Okta/SSO/Cognito authentication issues"
+    },
+    {
+      "keywords": [
+        "unable to link agreement",
+        "trouble linking agreement",
+        "agreement isn't there",
+        "agreement not showing online",
+        "link the agreement online",
+        "can't see agreement online",
+        "unable to locate agreement"
+      ],
+      "module": "Customer",
+      "type_of_issue": "Data Sync / Integration Failure",
+      "priority": 95,
+      "description": "Customer unable to link agreement to online account - OktaID/EmailID not tagged to CustomerID"
+    },
+    {
+      "keywords": [
+        "link the agreement",
+        "agreement link"
+      ],
+      "module": "Customer",
+      "type_of_issue": "Data Sync / Integration Failure",
+      "priority": 96
+    },
+    {
+      "keywords": [
+        "unable to transfer agreement",
+        "transfer the agreement"
+      ],
+      "module": "Agreement",
+      "type_of_issue": "Business Logic Error",
+      "priority": 95
+    },
+    {
+      "keywords": [
+        "refund",
+        "customer refund",
+        "refund not eligible",
+        "unable to refund",
+        "need to refund",
+        "refund the payment",
+        "refund back"
+      ],
+      "module": "Payment",
+      "type_of_issue": "Payment Processing Failure",
+      "priority": 95
+    },
+    {
+      "keywords": [
+        "payment reversal",
+        "payment reversal request",
+        "need to reverse payment"
+      ],
+      "module": "Payment",
+      "type_of_issue": "Payment Processing Failure",
+      "priority": 95
+    },
+    {
+      "keywords": [
+        "unbalanced receipt",
+        "ubr"
+      ],
+      "module": "Payment",
+      "type_of_issue": "Payment Processing Failure",
+      "priority": 95
+    },
+    {
+      "keywords": [
+        "trifecta code missing",
+        "trifecta not showing",
+        "trifecta missing dropdown",
+        "promo code missing dropdown",
+        "promo not available in dropdown"
+      ],
+      "module": "Agreement",
+      "type_of_issue": "Configuration Issue",
+      "priority": 93,
+      "description": "TRIFECTA promo code not appearing in dropdown for any customers"
+    },
+    {
+      "keywords": [
+        "InventoryPrice is required",
+        "Inventory and InventoryPrice"
+      ],
+      "module": "Inventory",
+      "type_of_issue": "API / Service Error",
+      "priority": 92,
+      "description": "BigPanda: sfcc-store-inventory-delta-events missing required fields"
+    },
+    {
+      "keywords": [
+        "csm ticketing access",
+        "csm access",
+        "ticketing access"
+      ],
+      "module": "Customer Service",
+      "type_of_issue": "Access / Permission Issue",
+      "priority": 92,
+      "description": "Request for CSM ticketing access in RACPAD"
+    },
+    {
+      "keywords": [
+        "customer order",
+        "pending customer order"
+      ],
+      "module": "Agreement",
+      "type_of_issue": "Business Logic Error",
+      "priority": 92,
+      "description": "Issues with special/customer orders - typically payment related"
+    },
+    {
+      "keywords": [
+        "rate reduction",
+        "rate issue",
+        "rate is not correct",
+        "rate is supposed to be",
+        "rate not reducing"
+      ],
+      "module": "Agreement",
+      "type_of_issue": "Business Logic Error",
+      "priority": 92,
+      "description": "Rate reduction not applying or rate showing incorrect amount"
+    },
+    {
+      "keywords": [
+        "rental payment amount",
+        "payment amount increasing",
+        "incorrect rental payment",
+        "ldw incorrect"
+      ],
+      "module": "Agreement",
+      "type_of_issue": "Data Discrepancy",
+      "priority": 92,
+      "description": "Rental payment or LDW amount showing incorrectly in system"
+    },
+    {
+      "keywords": [
+        "payment deducted twice",
+        "double payment",
+        "duplicate payment",
+        "deducted twice"
+      ],
+      "module": "Payment",
+      "type_of_issue": "Payment Processing Failure",
+      "priority": 92,
+      "description": "Payment pulled from customer bank account multiple times"
+    },
+    {
+      "keywords": [
+        "identity link not working",
+        "identity verification link",
+        "clicking the link does not trigger",
+        "verification link blank",
+        "blank page",
+        "intellicheck blank"
+      ],
+      "module": "Customer",
+      "type_of_issue": "UI/Display Error",
+      "priority": 90,
+      "description": "Customer identity verification link opens blank page or does nothing when clicked"
+    },
+    {
+      "keywords": [
+        "duplicate names",
+        "multiple accounts",
+        "duplicate customer",
+        "showing multiple times"
+      ],
+      "module": "Customer",
+      "type_of_issue": "Data Discrepancy",
+      "priority": 90,
+      "description": "Customer showing multiple times or duplicate records (generic); 'duplicate names in account management' is handled by a higher-priority rule → Account Management"
+    },
+    {
+      "keywords": [
+        "level 1 customer unable to add phone",
+        "level 1 cannot order phone",
+        "level 1 loyalty",
+        "customer not eligible for phone",
+        "level 1 phone"
+      ],
+      "module": "Agreement",
+      "type_of_issue": "Business Logic Error",
+      "priority": 90,
+      "description": "Level 1 loyalty customer unable to add phone to agreement"
+    },
+    {
+      "keywords": [
+        "system will not let us accept epo",
+        "accept the epo",
+        "epo acceptance",
+        "epo not working",
+        "cannot accept epo",
+        "epo greyed out",
+        "epo button",
+        "epo screen",
+        "accept epo"
+      ],
+      "module": "Payment",
+      "type_of_issue": "Payment Processing Failure",
+      "priority": 90,
+      "description": "EPO button greyed out or unable to accept early purchase option"
+    },
+    {
+      "keywords": [
+        "sac days",
+        "sac calculation",
+        "sac/epo",
+        "sac shows 9 months",
+        "sac 9 months instead of 6",
+        "incorrect sac term",
+        "sac term incorrect",
+        "sac showing expired"
+      ],
+      "module": "Agreement",
+      "type_of_issue": "Business Logic Error",
+      "priority": 90
+    },
+    {
+      "keywords": [
+        "promo agreement",
+        "promo discount",
+        "promo code",
+        "no promo code",
+        "no code available",
+        "trifecta"
+      ],
+      "module": "Agreement",
+      "type_of_issue": "Business Logic Error",
+      "priority": 72,
+      "description": "Promotional code not available or not applying to agreement"
+    },
+    {
+      "keywords": [
+        "unable to receive in po",
+        "unable to receive po",
+        "unable to receive",
+        "receive in purchase order",
+        "cannot receive",
+        "not able to receive",
+        "receive in po",
+        "listed under previously received",
+        "shows as previously received",
+        "listed as previously received",
+        "previously received po",
+        "option to receive in is not there",
+        "receive in is not there",
+        "no item listed in po",
+        "pull up in racpad to receive",
+        "nothing listed to receive",
+        "deliver to store but cannot receive",
+        "arrived at the store but"
+      ],
+      "module": "Inventory",
+      "type_of_issue": "Unable to receive the Purchase order",
+      "priority": 110,
+      "description": "Unable to receive item or PO in inventory"
+    },
+    {
+      "keywords": [
+        "amount mismatch",
+        "initial payment",
+        "incorrect amount",
+        "payment amount wrong"
+      ],
+      "module": "Payment",
+      "type_of_issue": "Payment Processing Failure",
+      "priority": 90
+    },
+    {
+      "keywords": [
+        "convenience fee"
+      ],
+      "module": "Payment",
+      "type_of_issue": "Payment Processing Failure",
+      "priority": 90
+    },
+    {
+      "keywords": [
+        "payment not reflecting",
+        "payment not posted",
+        "funds did not post",
+        "payment did not go through",
+        "payment not showing",
+        "payment was taken but isnt showing"
+      ],
+      "module": "Payment",
+      "type_of_issue": "Data Sync / Integration Failure",
+      "priority": 90,
+      "description": "Customer payment deducted but not reflected in RACPAD"
+    },
+    {
+      "keywords": [
+        "inventory transfer",
+        "transfer not reflected"
+      ],
+      "module": "Inventory",
+      "type_of_issue": "Inventory Management Error",
+      "priority": 90
+    },
+    {
+      "keywords": [
+        "geopool",
+        "geo pool",
+        "store geopool"
+      ],
+      "module": "Inventory",
+      "type_of_issue": "Inventory Management Error",
+      "priority": 90
+    },
+    {
+      "keywords": [
+        "cloud2onprem",
+        "batch-update-receipt",
+        "batch update receipt"
+      ],
+      "module": "Operations",
+      "type_of_issue": "Data Sync / Integration Failure",
+      "priority": 90,
+      "description": "BigPanda: cloud2onprem event processing errors"
+    },
+    {
+      "keywords": [
+        "UpdateClubService",
+        "Error in UpdateClubService"
+      ],
+      "module": "Agreement",
+      "type_of_issue": "API / Service Error",
+      "priority": 90,
+      "description": "BigPanda: agreementcreate Lambda UpdateClubService error"
+    },
+    {
+      "keywords": [
+        "Cash App Service Internal Server Error",
+        "PP_CASHAPP_500"
+      ],
+      "module": "Payment",
+      "type_of_issue": "API / Service Error",
+      "priority": 90,
+      "description": "BigPanda: Cash App payment processing service error"
+    },
+    {
+      "keywords": [
+        "cognito",
+        "token expired",
+        "session expired",
+        "token issue"
+      ],
+      "module": "Store",
+      "type_of_issue": "Authentication / SSO Issue",
+      "priority": 90
+    },
+    {
+      "keywords": [
+        "docusign",
+        "docu sign",
+        "agreement manually sign"
+      ],
+      "module": "Agreement",
+      "type_of_issue": "Document / Receipt Error",
+      "priority": 90
+    },
+    {
+      "keywords": [
+        "feature flag",
+        "feature not enabled"
+      ],
+      "module": "Operations",
+      "type_of_issue": "Configuration Issue",
+      "priority": 90
+    },
+    {
+      "keywords": [
+        "lambda 500",
+        "500 error",
+        "lambda error",
+        "service timeout",
+        "api timeout",
+        "statusCode 500"
+      ],
+      "module": "Operations",
+      "type_of_issue": "API / Service Error",
+      "priority": 90
+    },
+    {
+      "keywords": [
+        "cannot search customer",
+        "unable to search customer",
+        "customer search not working"
+      ],
+      "module": "Customer",
+      "type_of_issue": "UI/Display Error",
+      "priority": 90
+    },
+    {
+      "keywords": [
+        "negative balance",
+        "incorrect negative balance"
+      ],
+      "module": "Customer",
+      "type_of_issue": "Data Discrepancy",
+      "priority": 90
+    },
+    {
+      "keywords": [
+        "past due list",
+        "past-due list",
+        "pastdue"
+      ],
+      "module": "Account Management",
+      "type_of_issue": "Data Discrepancy",
+      "priority": 75
+    },
+    {
+      "keywords": [
+        "report discrepancy",
+        "report mismatch",
+        "incorrect data count in report"
+      ],
+      "module": "Reporting",
+      "type_of_issue": "Report discrepancy",
+      "priority": 90,
+      "description": "Merged: report discrepancy and report mismatch into single rule with specific type"
+    },
+    {
+      "keywords": [
+        "daily report manager",
+        "daily report",
+        "daily reports"
+      ],
+      "module": "Reporting",
+      "type_of_issue": "Data Discrepancy",
+      "priority": 90
+    },
+    {
+      "keywords": [
+        "venmo",
+        "venmo card",
+        "cash app",
+        "cashapp"
+      ],
+      "module": "Payment",
+      "type_of_issue": "Payment Processing Failure",
+      "priority": 88,
+      "description": "Issues with VENMO or Cash App payment processing"
+    },
+    {
+      "keywords": [
+        "legal hold",
+        "legal hold on account"
+      ],
+      "module": "Agreement",
+      "type_of_issue": "Business Logic Error",
+      "priority": 88,
+      "description": "Legal hold preventing actions on customer account"
+    },
+    {
+      "keywords": [
+        "unable to create agreement",
+        "error while creating agreement",
+        "agreement creation error"
+      ],
+      "module": "Agreement",
+      "type_of_issue": "Business Logic Error",
+      "priority": 88,
+      "description": "Error when trying to create a new agreement"
+    },
+    {
+      "keywords": [
+        "customer order feature disabled",
+        "customer order disabled",
+        "void agreements eclipse",
+        "eclipse rto",
+        "customer order module disabled"
+      ],
+      "module": "Agreement",
+      "type_of_issue": "Configuration Issue",
+      "priority": 88,
+      "description": "CW unable to void agreements because Customer Order feature is disabled for Eclipse RTO stores"
+    },
+    {
+      "keywords": [
+        "overridden other charge reapplied",
+        "other charge automatically reapplied",
+        "processing fee override",
+        "processing fee reapplied after completing"
+      ],
+      "module": "Payment",
+      "type_of_issue": "Business Logic Error",
+      "priority": 88,
+      "description": "Overridden other charge in initial payment auto-reapplied after completing agreement"
+    },
+    {
+      "keywords": [
+        "sac shows 9 months",
+        "sac 9 months instead of 6",
+        "incorrect sac term",
+        "sac term incorrect",
+        "sac showing expired"
+      ],
+      "module": "Agreement",
+      "type_of_issue": "Business Logic Error",
+      "priority": 88,
+      "description": "SAC shows incorrect term"
+    },
+    {
+      "keywords": [
+        "epo amount is 0",
+        "epo incorrectly calculated",
+        "epo calculated as 0",
+        "epo shows 0 after sac",
+        "incorrect epo"
+      ],
+      "module": "Payment",
+      "type_of_issue": "Business Logic Error",
+      "priority": 88,
+      "description": "EPO amount incorrectly calculated as $0 after SAC period ends"
+    },
+    {
+      "keywords": [
+        "duplicate customer record",
+        "duplicate customer account",
+        "merge customer",
+        "customer has two accounts",
+        "two separate accounts",
+        "combine accounts"
+      ],
+      "module": "Customer",
+      "type_of_issue": "Data Discrepancy",
+      "priority": 88,
+      "description": "Customer has duplicate records - request to merge into single account"
+    },
+    {
+      "keywords": [
+        "customer not eligible for reward",
+        "not eligible for reward error",
+        "customer not eligible error"
+      ],
+      "module": "Customer",
+      "type_of_issue": "Business Logic Error",
+      "priority": 88,
+      "description": "Error popup saying customer not eligible for reward"
+    },
+    {
+      "keywords": [
+        "online account",
+        "log in to online account",
+        "weblink",
+        "log in to his online account"
+      ],
+      "module": "Customer",
+      "type_of_issue": "Authentication / SSO Issue",
+      "priority": 88,
+      "description": "Customer unable to log in to online account or weblink issues"
+    },
+    {
+      "keywords": [
+        "Error in DE Service",
+        "CAR104",
+        "customerapproval"
+      ],
+      "module": "Customer",
+      "type_of_issue": "API / Service Error",
+      "priority": 88,
+      "description": "BigPanda: Customer approval DE service transient failure"
+    },
+    {
+      "keywords": [
+        "Error in ApplyPaymentService",
+        "postpayment"
+      ],
+      "module": "Payment",
+      "type_of_issue": "API / Service Error",
+      "priority": 88,
+      "description": "BigPanda: Apply payment service error"
+    },
+    {
+      "keywords": [
+        "Failed to update store geopool",
+        "sfcc-store-delta-events"
+      ],
+      "module": "Inventory",
+      "type_of_issue": "API / Service Error",
+      "priority": 88,
+      "description": "BigPanda: Store geopool update failure"
+    },
+    {
+      "keywords": [
+        "purchase cost",
+        "receive value",
+        "rv was set",
+        "price discrepancy",
+        "cost is marked",
+        "purchase price"
+      ],
+      "module": "Inventory",
+      "type_of_issue": "Data Discrepancy",
+      "priority": 88,
+      "description": "Purchase cost/RV mismatch between actual and system value"
+    },
+    {
+      "keywords": [
+        "idle inventory",
+        "idle PO",
+        "old PO",
+        "old open PO",
+        "PO removal",
+        "remove PO",
+        "close the PO",
+        "PO taken off",
+        "PO deleted",
+        "outstanding po",
+        "remove purchase order",
+        "removal of an outstanding",
+        "open pos from",
+        "pending po",
+        "old p.o",
+        "remove po from",
+        "delete po",
+        "unable to delete po",
+        "cannot be received into inventory",
+        "inventory blackout",
+        "needs to be made idle",
+        "need to be made idle",
+        "made idle in order",
+        "incorrect model received",
+        "incorrect model was received",
+        "wrong item received",
+        "item showing wrong model",
+        "reverse just that item",
+        "reverse this item only",
+        "item is showing washer",
+        "item is showing dryer"
+      ],
+      "module": "Inventory",
+      "type_of_issue": "Inventory Management Error",
+      "priority": 96,
+      "description": "Old/invalid POs need to be removed from idle inventory"
+    },
+    {
+      "keywords": [
+        "drop reconciliation",
+        "drop reconciliation report",
+        "drop receipt",
+        "past drop report",
+        "no drop for that date"
+      ],
+      "module": "Store",
+      "type_of_issue": "Data Discrepancy",
+      "priority": 88,
+      "description": "Drop reconciliation report missing or inaccessible for a specific date"
+    },
+    {
+      "keywords": [
+        "collection metrics",
+        "weekly reports",
+        "2% increased"
+      ],
+      "module": "Reporting",
+      "type_of_issue": "Data Discrepancy",
+      "priority": 88,
+      "description": "Discrepancy between daily and weekly collection metrics reports"
+    },
+    {
+      "keywords": [
+        "back from charged off",
+        "charge off",
+        "charge-off",
+        "chargeoff",
+        "auto charged off",
+        "charged off item",
+        "item charged off",
+        "reverse charged off",
+        "charged off",
+        "bring back from charged off",
+        "charged off status"
+      ],
+      "module": "Inventory",
+      "type_of_issue": "Inventory Management Error",
+      "priority": 55
+    },
+    {
+      "keywords": [
+        "reinstatement",
+        "reinstate agreement",
+        "mistakenly returned",
+        "accidentally returned",
+        "accidently returned"
+      ],
+      "module": "Agreement",
+      "type_of_issue": "Business Logic Error",
+      "priority": 85
+    },
+    {
+      "keywords": [
+        "unable to add package",
+        "unable to add items to package",
+        "package items error",
+        "do not meet the package criteria",
+        "package criteria error"
+      ],
+      "module": "Agreement",
+      "type_of_issue": "Business Logic Error",
+      "priority": 85,
+      "description": "Unable to add items to package - items don't meet package criteria error"
+    },
+    {
+      "keywords": [
+        "negative trto",
+        "negative sac after term reduction",
+        "multiple term reductions"
+      ],
+      "module": "Agreement",
+      "type_of_issue": "Business Logic Error",
+      "priority": 85,
+      "description": "Negative TRTO and SAC after multiple term reductions"
+    },
+    {
+      "keywords": [
+        "ldw tax added",
+        "ldw is 0 but tax",
+        "ldw tax getting added"
+      ],
+      "module": "Agreement",
+      "type_of_issue": "Business Logic Error",
+      "priority": 85,
+      "description": "LDW tax being added even though LDW amount is $0"
+    },
+    {
+      "keywords": [
+        "rate retention incorrect",
+        "retention amount wrong",
+        "epo reduction not applying",
+        "retention not applying",
+        "rate retention for agreements"
+      ],
+      "module": "Payment",
+      "type_of_issue": "Business Logic Error",
+      "priority": 85,
+      "description": "Rate retention for agreements is calculated/applied incorrectly"
+    },
+    {
+      "keywords": [
+        "suspense",
+        "suspense handling",
+        "suspense allocation",
+        "suspense account",
+        "suspense money"
+      ],
+      "module": "Payment",
+      "type_of_issue": "Payment Processing Failure",
+      "priority": 85
+    },
+    {
+      "keywords": [
+        "epo payment",
+        "sac payment",
+        "epo/sac"
+      ],
+      "module": "Payment",
+      "type_of_issue": "Payment Processing Failure",
+      "priority": 85
+    },
+    {
+      "keywords": [
+        "autopay",
+        "auto pay",
+        "auto-pay",
+        "auto pay not working",
+        "autopay not processing",
+        "disenrollment"
+      ],
+      "module": "Payment",
+      "type_of_issue": "Payment Processing Failure",
+      "priority": 85
+    },
+    {
+      "keywords": [
+        "txt2pay",
+        "text to pay",
+        "barcode payment"
+      ],
+      "module": "Payment",
+      "type_of_issue": "Payment Processing Failure",
+      "priority": 85
+    },
+    {
+      "keywords": [
+        "epo processed as rental",
+        "epo payment as rental",
+        "epo incorrectly processed"
+      ],
+      "module": "Payment",
+      "type_of_issue": "Business Logic Error",
+      "priority": 85,
+      "description": "EPO payment incorrectly processed as rental payment, leaving agreement open"
+    },
+    {
+      "keywords": [
+        "receipt reversal charged off",
+        "charge-off date not nullified",
+        "duplicate charge-off",
+        "receipt reversal for charged off"
+      ],
+      "module": "Payment",
+      "type_of_issue": "Business Logic Error",
+      "priority": 85,
+      "description": "Receipt reversal for charged-off inventory not nullifying charge-off date"
+    },
+    {
+      "keywords": [
+        "unable to chargeoff",
+        "charge off using suspense",
+        "suspense to charge off",
+        "transaction failed charge off"
+      ],
+      "module": "Payment",
+      "type_of_issue": "Business Logic Error",
+      "priority": 82,
+      "description": "Unable to charge off account using suspense amount - transaction failed error"
+    },
+    {
+      "keywords": [
+        "unable to update income",
+        "income information"
+      ],
+      "module": "Customer",
+      "type_of_issue": "UI/Display Error",
+      "priority": 85
+    },
+    {
+      "keywords": [
+        "unable to update phone",
+        "phone number update"
+      ],
+      "module": "Customer",
+      "type_of_issue": "UI/Display Error",
+      "priority": 85
+    },
+    {
+      "keywords": [
+        "customer creation",
+        "create customer",
+        "unable to create customer"
+      ],
+      "module": "Customer",
+      "type_of_issue": "Business Logic Error",
+      "priority": 85
+    },
+    {
+      "keywords": [
+        "cocustomer",
+        "co customer"
+      ],
+      "module": "Customer",
+      "type_of_issue": "Business Logic Error",
+      "priority": 85
+    },
+    {
+      "keywords": [
+        "customer record check",
+        "record check",
+        "crc",
+        "failed to perform record check",
+        "record check not working",
+        "customer record check failed",
+        "no results found for customer record check"
+      ],
+      "module": "Account Management",
+      "type_of_issue": "search Issue",
+      "priority": 85
+    },
+    {
+      "keywords": [
+        "documents disappearing",
+        "uploaded documents missing",
+        "information disappears after saving",
+        "customer information not getting saved"
+      ],
+      "module": "Customer",
+      "type_of_issue": "Data Sync / Integration Failure",
+      "priority": 85,
+      "description": "Documents or customer info disappearing after being uploaded/saved"
+    },
+    {
+      "keywords": [
+        "incorrect chargeback",
+        "chargeback added incorrectly",
+        "nsf added incorrectly",
+        "chargeback should be removed"
+      ],
+      "module": "Customer",
+      "type_of_issue": "Data Discrepancy",
+      "priority": 85,
+      "description": "Incorrect chargeback or NSF added to customer account that needs removal"
+    },
+    {
+      "keywords": [
+        "Error in VerifyAddressService",
+        "addressdoctor"
+      ],
+      "module": "Customer",
+      "type_of_issue": "API / Service Error",
+      "priority": 85,
+      "description": "BigPanda: Address verification service failure"
+    },
+    {
+      "keywords": [
+        "Error in BmsDetailsService",
+        "customerclub"
+      ],
+      "module": "Customer",
+      "type_of_issue": "API / Service Error",
+      "priority": 85,
+      "description": "BigPanda: Customer club/BMS details service error"
+    },
+    {
+      "keywords": [
+        "Error in ManageCustomerStgDataService",
+        "customerstaging"
+      ],
+      "module": "Customer",
+      "type_of_issue": "Data Sync / Integration Failure",
+      "priority": 85,
+      "description": "BigPanda: Customer staging data service error"
+    },
+    {
+      "keywords": [
+        "Error in GetAgreementInfoService",
+        "agreementdetails"
+      ],
+      "module": "Agreement",
+      "type_of_issue": "API / Service Error",
+      "priority": 85,
+      "description": "BigPanda: Agreement details service error"
+    },
+    {
+      "keywords": [
+        "Error in UploadReceiptsService",
+        "deliveryreceipt"
+      ],
+      "module": "Store",
+      "type_of_issue": "API / Service Error",
+      "priority": 85,
+      "description": "BigPanda: Delivery receipt upload service error"
+    },
+    {
+      "keywords": [
+        "Error in UpdateWebleadService",
+        "webleadpayment"
+      ],
+      "module": "Payment",
+      "type_of_issue": "API / Service Error",
+      "priority": 85,
+      "description": "BigPanda: Weblead payment update service error"
+    },
+    {
+      "keywords": [
+        "event data not inserted",
+        "inventory activity not generated",
+        "customer events not synced"
+      ],
+      "module": "Data Services",
+      "type_of_issue": "Data Sync / Integration Failure",
+      "priority": 85
+    },
+    {
+      "keywords": [
+        "commitment issue",
+        "commitment not",
+        "commitment"
+      ],
+      "module": "Account Management",
+      "type_of_issue": "Business Logic Error",
+      "priority": 85
+    },
+    {
+      "keywords": [
+        "field sheet",
+        "field visit",
+        "fetch field sheets"
+      ],
+      "module": "Account Management",
+      "type_of_issue": "UI/Display Error",
+      "priority": 85
+    },
+    {
+      "keywords": [
+        "route result",
+        "route count",
+        "route assignment",
+        "salesperson",
+        "route assignments"
+      ],
+      "module": "Account Management",
+      "type_of_issue": "Data Discrepancy",
+      "priority": 85
+    },
+    {
+      "keywords": [
+        "store action item",
+        "store action item pending delivery",
+        "store action item showing delivery",
+        "clear store action item"
+      ],
+      "module": "Dashboard",
+      "type_of_issue": "Data Discrepancy",
+      "priority": 85
+    },
+    {
+      "keywords": [
+        "cash management",
+        "cash drop",
+        "cash drawer",
+        "paid in",
+        "paid out"
+      ],
+      "module": "Store",
+      "type_of_issue": "Business Logic Error",
+      "priority": 85
+    },
+    {
+      "keywords": [
+        "dap",
+        "daily activity planner",
+        "reopen the event on dap"
+      ],
+      "module": "Store",
+      "type_of_issue": "UI/Display Error",
+      "priority": 85
+    },
+    {
+      "keywords": [
+        "unable to print service sheet",
+        "print service sheet",
+        "service sheet not printing"
+      ],
+      "module": "Store",
+      "type_of_issue": "UI/Display Error",
+      "priority": 85,
+      "description": "Store unable to print service sheet"
+    },
+    {
+      "keywords": [
+        "unable to save customer survey",
+        "customer survey not saving",
+        "save survey error"
+      ],
+      "module": "Store",
+      "type_of_issue": "Business Logic Error",
+      "priority": 85,
+      "description": "Unable to save customer survey responses"
+    },
+    {
+      "keywords": [
+        "submit inventory",
+        "unable to submit inventory",
+        "inventory scan"
+      ],
+      "module": "Inventory",
+      "type_of_issue": "Business Logic Error",
+      "priority": 82,
+      "description": "Unable to submit inventory in RACPAD"
+    },
+    {
+      "keywords": [
+        "rent ready",
+        "not rent ready",
+        "change to rent ready",
+        "item to rent ready",
+        "change status"
+      ],
+      "module": "Inventory",
+      "type_of_issue": "Inventory Management Error",
+      "priority": 85,
+      "description": "Item needs to be changed to rent ready or status changed"
+    },
+    {
+      "keywords": [
+        "item search",
+        "duplicate item",
+        "item status",
+        "item stuck",
+        "item not showing"
+      ],
+      "module": "Inventory",
+      "type_of_issue": "Inventory Management Error",
+      "priority": 85
+    },
+    {
+      "keywords": [
+        "loaner",
+        "item off loaner",
+        "take off loaner",
+        "remove from loaner"
+      ],
+      "module": "Inventory",
+      "type_of_issue": "Inventory Management Error",
+      "priority": 85,
+      "description": "Need to remove item from loaner status"
+    },
+    {
+      "keywords": [
+        "inventory showing rent ready",
+        "tagged to active agreement but rent ready",
+        "on rent showing as rent ready"
+      ],
+      "module": "Inventory",
+      "type_of_issue": "Inventory Management Error",
+      "priority": 85,
+      "description": "Inventory tagged to active agreement incorrectly showing as Rent Ready instead of On Rent"
+    },
+    {
+      "keywords": [
+        "item in service but delivered",
+        "showing in service even though",
+        "item being serviced but on rent",
+        "service ticket cannot close"
+      ],
+      "module": "Inventory",
+      "type_of_issue": "Inventory Management Error",
+      "priority": 85,
+      "description": "Item still showing in service even though it has been taken out and put on rent"
+    },
+    {
+      "keywords": [
+        "price tag",
+        "price tags",
+        "print a tag"
+      ],
+      "module": "Inventory",
+      "type_of_issue": "Inventory Management Error",
+      "priority": 85
+    },
+    {
+      "keywords": [
+        "po receiving",
+        "acima po",
+        "po cancellation"
+      ],
+      "module": "Inventory",
+      "type_of_issue": "Inventory Management Error",
+      "priority": 85
+    },
+    {
+      "keywords": [
+        "pricing upload",
+        "zone management",
+        "zone configuration"
+      ],
+      "module": "Operations",
+      "type_of_issue": "Configuration Issue",
+      "priority": 85
+    },
+    {
+      "keywords": [
+        "config db",
+        "business rule",
+        "paramkey"
+      ],
+      "module": "Operations",
+      "type_of_issue": "Configuration Issue",
+      "priority": 85
+    },
+    {
+      "keywords": [
+        "400 bad request",
+        "invalid payload",
+        "oauth scope"
+      ],
+      "module": "Operations",
+      "type_of_issue": "API / Service Error",
+      "priority": 85
+    },
+    {
+      "keywords": [
+        "unhandled promise",
+        "promise rejection"
+      ],
+      "module": "Operations",
+      "type_of_issue": "API / Service Error",
+      "priority": 85
+    },
+    {
+      "keywords": [
+        "translation",
+        "spanish",
+        "english text in spanish",
+        "localization"
+      ],
+      "module": "Store",
+      "type_of_issue": "Translation / Localization",
+      "priority": 85
+    },
+    {
+      "keywords": [
+        "eod",
+        "end of day",
+        "batch job",
+        "batch process"
+      ],
+      "module": "Operations",
+      "type_of_issue": "EOM",
+      "priority": 85
+    },
+    {
+      "keywords": [
+        "tax depreciation",
+        "depreciation job"
+      ],
+      "module": "Operations",
+      "type_of_issue": "EOM",
+      "priority": 85
+    },
+    {
+      "keywords": [
+        "manager credentials",
+        "asking for manager credentials",
+        "sla auth"
+      ],
+      "module": "Store",
+      "type_of_issue": "Authentication / SSO Issue",
+      "priority": 85,
+      "description": "System asking for manager credentials unexpectedly"
+    },
+    {
+      "keywords": [
+        "this feature is currently not assigned",
+        "feature not assigned to you",
+        "feature currently not assigned"
+      ],
+      "module": "Store",
+      "type_of_issue": "Access / Permission Issue",
+      "priority": 85,
+      "description": "Error: this feature is currently not assigned to you"
+    },
+    {
+      "keywords": [
+        "detailed account report",
+        "generating detailed account report",
+        "detailed report on rental",
+        "account report"
+      ],
+      "module": "Reporting",
+      "type_of_issue": "Data Discrepancy",
+      "priority": 85
+    },
+    {
+      "keywords": [
+        "sales person recap",
+        "salesperson recap"
+      ],
+      "module": "Reporting",
+      "type_of_issue": "Data Discrepancy",
+      "priority": 85
+    },
+    {
+      "keywords": [
+        "exception audit trail",
+        "receipt audit trail",
+        "transaction audit trail",
+        "audit history",
+        "acceptations"
+      ],
+      "module": "Reporting",
+      "type_of_issue": "Data Discrepancy",
+      "priority": 85
+    },
+    {
+      "keywords": [
+        "inventory recap"
+      ],
+      "module": "Reporting",
+      "type_of_issue": "Data Discrepancy",
+      "priority": 85
+    },
+    {
+      "keywords": [
+        "ticket creation",
+        "ticket assignment",
+        "ticket escalation"
+      ],
+      "module": "Customer Service",
+      "type_of_issue": "Business Logic Error",
+      "priority": 85
+    },
+    {
+      "keywords": [
+        "eom task",
+        "end of month"
+      ],
+      "module": "Data Services",
+      "type_of_issue": "EOM",
+      "priority": 85
+    },
+    {
+      "keywords": [
+        "dashboard widget",
+        "sales lead",
+        "ecomm dof",
+        "ecommerce lead"
+      ],
+      "module": "Dashboard",
+      "type_of_issue": "UI/Display Error",
+      "priority": 85
+    },
+    {
+      "keywords": [
+        "save card",
+        "card details",
+        "credit card number",
+        "re-enter your credit card",
+        "unable to save card",
+        "save the card details",
+        "check and re-enter your credit card"
+      ],
+      "module": "Payment",
+      "type_of_issue": "Unable to Save card details",
+      "priority": 87,
+      "description": "Unable to save or process credit card details in RACPAD"
+    },
+    {
+      "keywords": [
+        "wrong name on agreement",
+        "showing different name",
+        "name mismatch",
+        "incorrect name"
+      ],
+      "module": "Agreement",
+      "type_of_issue": "Data Discrepancy",
+      "priority": 82,
+      "description": "Customer name on agreement does not match actual customer"
+    },
+    {
+      "keywords": [
+        "agreement price shows more",
+        "agreement price incorrect",
+        "price showing more than it should"
+      ],
+      "module": "Agreement",
+      "type_of_issue": "Data Discrepancy",
+      "priority": 82,
+      "description": "Agreement price displaying more than expected"
+    },
+    {
+      "keywords": [
+        "rac exchange",
+        "racexchange"
+      ],
+      "module": "Agreement",
+      "type_of_issue": "Access / Permission Issue",
+      "priority": 82,
+      "description": "Unable to do RAC Exchange - needs manager credentials"
+    },
+    {
+      "keywords": [
+        "item on rent",
+        "showing as rent",
+        "item is currently showing as rent"
+      ],
+      "module": "Inventory",
+      "type_of_issue": "Inventory Management Error",
+      "priority": 82,
+      "description": "Item incorrectly showing as on rent when it is in store"
+    },
+    {
+      "keywords": [
+        "in service",
+        "item in service",
+        "item is in service"
+      ],
+      "module": "Inventory",
+      "type_of_issue": "Inventory Management Error",
+      "priority": 82,
+      "description": "Item stuck in service status preventing actions"
+    },
+    {
+      "keywords": [
+        "item does not exist",
+        "remove item from racpad",
+        "item not in store"
+      ],
+      "module": "Inventory",
+      "type_of_issue": "Inventory Management Error",
+      "priority": 82,
+      "description": "Request to remove non-existent item from RACPAD"
+    },
+    {
+      "keywords": [
+        "unable to finalize audit",
+        "not letting me finalize",
+        "finalize inventory audit"
+      ],
+      "module": "Inventory",
+      "type_of_issue": "Inventory Management Error",
+      "priority": 82,
+      "description": "Unable to finalize inventory audit"
+    },
+    {
+      "keywords": [
+        "customer address interchanged",
+        "address fields interchanged",
+        "address information fields swapped"
+      ],
+      "module": "Customer",
+      "type_of_issue": "UI/Display Error",
+      "priority": 82,
+      "description": "Customer address information fields are interchanged when updating"
+    },
+    {
+      "keywords": [
+        "customer transfer",
+        "transfer customer",
+        "location merging",
+        "merge customers"
+      ],
+      "module": "Customer",
+      "type_of_issue": "Business Logic Error",
+      "priority": 82,
+      "description": "Issues transferring customers between stores or merging locations"
+    },
+    {
+      "keywords": [
+        "experiankba",
+        "An unexpected error occurred"
+      ],
+      "module": "Customer",
+      "type_of_issue": "API / Service Error",
+      "priority": 82,
+      "description": "BigPanda: Experian KBA verification error"
+    },
+    {
+      "keywords": [
+        "Error in PdfDocumentService",
+        "getdocument",
+        "NoSuchKey"
+      ],
+      "module": "Operations",
+      "type_of_issue": "Document / Receipt Error",
+      "priority": 82,
+      "description": "BigPanda: PDF document service - missing document in S3"
+    },
+    {
+      "keywords": [
+        "2-way text",
+        "2 way text",
+        "two way text",
+        "text message",
+        "text customers",
+        "autopay set up text",
+        "send text",
+        "text not coming through"
+      ],
+      "module": "Account Management",
+      "type_of_issue": "Data Sync / Integration Failure",
+      "priority": 80
+    },
+    {
+      "keywords": [
+        "skip stolen",
+        "skip/stolen",
+        "stolen from store",
+        "stole from store",
+        "item was stole"
+      ],
+      "module": "Account Management",
+      "type_of_issue": "Business Logic Error",
+      "priority": 80
+    },
+    {
+      "keywords": [
+        "agreement description",
+        "agreement status",
+        "agreement shows past due",
+        "agreement due date incorrect"
+      ],
+      "module": "Agreement",
+      "type_of_issue": "Data Discrepancy",
+      "priority": 80
+    },
+    {
+      "keywords": [
+        "remove the reference",
+        "remove reference"
+      ],
+      "module": "Agreement",
+      "type_of_issue": "Data Discrepancy",
+      "priority": 80
+    },
+    {
+      "keywords": [
+        "w/l deposit",
+        "weblink deposit",
+        "wl deposit"
+      ],
+      "module": "Payment",
+      "type_of_issue": "Payment Processing Failure",
+      "priority": 80,
+      "description": "Unable to refund web lead deposit"
+    },
+    {
+      "keywords": [
+        "payment receipt",
+        "receipt printing",
+        "print receipt",
+        "past drop receipts"
+      ],
+      "module": "Payment",
+      "type_of_issue": "Document / Receipt Error",
+      "priority": 80
+    },
+    {
+      "keywords": [
+        "refer a friend",
+        "referral link",
+        "referral button",
+        "faded refer",
+        "referral link greyed",
+        "referral button greyed",
+        "referral link not enabled",
+        "send referral greyed"
+      ],
+      "module": "Customer",
+      "type_of_issue": "UI/Display Error",
+      "priority": 80,
+      "description": "Refer-a-friend button greyed out or referral link not sending"
+    },
+    {
+      "keywords": [
+        "customer alert",
+        "customer notification"
+      ],
+      "module": "Customer",
+      "type_of_issue": "UI/Display Error",
+      "priority": 80
+    },
+    {
+      "keywords": [
+        "customer rewards",
+        "reward points"
+      ],
+      "module": "Customer",
+      "type_of_issue": "Data Discrepancy",
+      "priority": 80
+    },
+    {
+      "keywords": [
+        "customer verification",
+        "identity verification"
+      ],
+      "module": "Customer",
+      "type_of_issue": "Business Logic Error",
+      "priority": 80
+    },
+    {
+      "keywords": [
+        "remove tax exempt",
+        "unselect tax exempt",
+        "tax exempt status",
+        "tax exempt removal"
+      ],
+      "module": "Customer",
+      "type_of_issue": "Data Discrepancy",
+      "priority": 80,
+      "description": "Customer account incorrectly marked as tax exempt - needs removal"
+    },
+    {
+      "keywords": [
+        "Error in Get Customer Promotion Balance",
+        "promotionrewards"
+      ],
+      "module": "Customer",
+      "type_of_issue": "API / Service Error",
+      "priority": 80,
+      "description": "BigPanda: Customer promotion/rewards balance error"
+    },
+    {
+      "keywords": [
+        "store calendar"
+      ],
+      "module": "Store",
+      "type_of_issue": "UI/Display Error",
+      "priority": 80
+    },
+    {
+      "keywords": [
+        "clearance",
+        "remove item from clearance",
+        "remove from clearance"
+      ],
+      "module": "Store",
+      "type_of_issue": "Business Logic Error",
+      "priority": 80
+    },
+    {
+      "keywords": [
+        "zafiro",
+        "inventory service"
+      ],
+      "module": "Inventory",
+      "type_of_issue": "API / Service Error",
+      "priority": 80
+    },
+    {
+      "keywords": [
+        "admin module",
+        "admin config"
+      ],
+      "module": "Operations",
+      "type_of_issue": "Configuration Issue",
+      "priority": 80
+    },
+    {
+      "keywords": [
+        "secondary criteria",
+        "hierarchy pricing"
+      ],
+      "module": "Operations",
+      "type_of_issue": "Configuration Issue",
+      "priority": 80
+    },
+    {
+      "keywords": [
+        "container crash",
+        "stack limit",
+        "high latency",
+        "performance",
+        "slow"
+      ],
+      "module": "Operations",
+      "type_of_issue": "Performance / Timeout",
+      "priority": 80
+    },
+    {
+      "keywords": [
+        "email template",
+        "wrong email",
+        "invoice uuid"
+      ],
+      "module": "Operations",
+      "type_of_issue": "Document / Receipt Error",
+      "priority": 80
+    },
+    {
+      "keywords": [
+        "factura",
+        "factura generation"
+      ],
+      "module": "Operations",
+      "type_of_issue": "Document / Receipt Error",
+      "priority": 80
+    },
+    {
+      "keywords": [
+        "racdb",
+        "entdb",
+        "sync failure",
+        "sync issue",
+        "data not synced"
+      ],
+      "module": "Data Services",
+      "type_of_issue": "Data Sync / Integration Failure",
+      "priority": 80
+    },
+    {
+      "keywords": [
+        "store access fix",
+        "role access fix"
+      ],
+      "module": "Data Services",
+      "type_of_issue": "Access / Permission Issue",
+      "priority": 80
+    },
+    {
+      "keywords": [
+        "power bi",
+        "pbi",
+        "embedded report"
+      ],
+      "module": "Reporting",
+      "type_of_issue": "UI/Display Error",
+      "priority": 80
+    },
+    {
+      "keywords": [
+        "blank screen",
+        "white screen",
+        "page not loading",
+        "page blank"
+      ],
+      "module": "Store",
+      "type_of_issue": "UI/Display Error",
+      "priority": 80
+    },
+    {
+      "keywords": [
+        "duo code",
+        "duo"
+      ],
+      "module": "Store",
+      "type_of_issue": "Authentication / SSO Issue",
+      "priority": 80
+    },
+    {
+      "keywords": [
+        "currency code",
+        "country code"
+      ],
+      "module": "Store",
+      "type_of_issue": "Translation / Localization",
+      "priority": 80
+    },
+    {
+      "keywords": [
+        "medallia"
+      ],
+      "module": "Customer Service",
+      "type_of_issue": "Data Sync / Integration Failure",
+      "priority": 80
+    },
+    {
+      "keywords": [
+        "closed stores visible",
+        "closed stores",
+        "stores have been closed",
+        "see closed store"
+      ],
+      "module": "Store",
+      "type_of_issue": "UI/Display Error",
+      "priority": 78,
+      "description": "Closed stores still visible in store search or ordering"
+    },
+    {
+      "keywords": [
+        "extension",
+        "ext refunded",
+        "extension promo"
+      ],
+      "module": "Account Management",
+      "type_of_issue": "Business Logic Error",
+      "priority": 78,
+      "description": "Issues with agreement extensions or extension promo"
+    },
+    {
+      "keywords": [
+        "something went wrong",
+        "payment page error",
+        "payment failed",
+        "payment error",
+        "reverse payment transaction has failed"
+      ],
+      "module": "Payment",
+      "type_of_issue": "Payment Processing Failure",
+      "priority": 75
+    },
+    {
+      "keywords": [
+        "package agreement",
+        "add-on package",
+        "addon package"
+      ],
+      "module": "Agreement",
+      "type_of_issue": "Business Logic Error",
+      "priority": 75
+    },
+    {
+      "keywords": [
+        "dof",
+        "digital order form"
+      ],
+      "module": "Customer",
+      "type_of_issue": "Business Logic Error",
+      "priority": 75
+    },
+    {
+      "keywords": [
+        "rac operation insight",
+        "operation insight"
+      ],
+      "module": "Customer",
+      "type_of_issue": "Data Discrepancy",
+      "priority": 75,
+      "description": "Issues with RAC Operation Insight data"
+    },
+    {
+      "keywords": [
+        "user role",
+        "role not returned",
+        "permission"
+      ],
+      "module": "Store",
+      "type_of_issue": "Access / Permission Issue",
+      "priority": 75
+    },
+    {
+      "keywords": [
+        "coworker missing",
+        "cw missing",
+        "dropdown",
+        "still appearing",
+        "salesperson with route"
+      ],
+      "module": "Store",
+      "type_of_issue": "UI/Display Error",
+      "priority": 75,
+      "description": "Former employee still appearing in system or current employee missing"
+    },
+    {
+      "keywords": [
+        "servicenow",
+        "csm ticketing",
+        "csm module"
+      ],
+      "module": "Customer Service",
+      "type_of_issue": "Business Logic Error",
+      "priority": 75
+    },
+    {
+      "keywords": [
+        "meraki",
+        "router",
+        "gateway ip",
+        "internet connection",
+        "network"
+      ],
+      "module": "Operations",
+      "type_of_issue": "Configuration Issue",
+      "priority": 75,
+      "description": "Network/hardware infrastructure issue (Meraki router, gateway)"
+    },
+    {
+      "keywords": [
+        "store event",
+        "store stats"
+      ],
+      "module": "Dashboard",
+      "type_of_issue": "UI/Display Error",
+      "priority": 80
+    },
+    {
+      "keywords": [
+        "action item"
+      ],
+      "module": "Dashboard",
+      "type_of_issue": "UI/Display Error",
+      "priority": 75
+    },
+    {
+      "keywords": [
+        "pricing",
+        "price mismatch",
+        "price issue",
+        "price in the system",
+        "price should be"
+      ],
+      "module": "Operations",
+      "type_of_issue": "Configuration Issue",
+      "priority": 70
+    },
+    {
+      "keywords": [
+        "bigpanda",
+        "big panda"
+      ],
+      "module": "BigPanda",
+      "type_of_issue": "BigPanda",
+      "priority": 70
+    },
+    {
+      "keywords": [
+        "collection",
+        "am activity",
+        "collection metrics"
+      ],
+      "module": "Account Management",
+      "type_of_issue": "Business Logic Error",
+      "priority": 70
+    },
+    {
+      "keywords": [
+        "data fix",
+        "datafix",
+        "backend fix"
+      ],
+      "module": "Data Services",
+      "type_of_issue": "Data Discrepancy",
+      "priority": 90
+    },
+    {
+      "keywords": [
+        "racdb fix",
+        "entdb fix",
+        "db fix",
+        "database fix"
+      ],
+      "module": "Data Services",
+      "type_of_issue": "Data Discrepancy",
+      "priority": 90
+    },
+    {
+      "priority": 103,
+      "module": "Inventory",
+      "type_of_issue": "Cancel the Manual PO",
+      "description": "Cancel or close a Manual PO — keywords require unambiguous manual PO context. 'cancel manual po' and 'cancel the manual po' removed: they match description notes referencing the wrong type (e.g. 'cancel the Manual PO type of issue which is not correct'). P108 rule already covers M-prefix PO numbers.",
+      "keywords": [
+        "close manual po",
+        "manual po cancellation",
+        "special order cancellation",
+        "cancel special order",
+        "manual po needs to be closed",
+        "manual po sitting",
+        "manually created po"
+      ]
+    },
+    {
+      "priority": 95,
+      "module": "Data Services",
+      "type_of_issue": "One Time Issue",
+      "keywords": [
+        "oracle sql",
+        "oracle sql developer",
+        "postgresql",
+        "sql developer",
+        "dpa alert",
+        "dpa alert notification",
+        "db blocking",
+        "database blocking",
+        "data purge",
+        "rdp txn database",
+        "rdp pricing",
+        "prod postgresql",
+        "sql related",
+        "data services",
+        "database job failed",
+        "db alert",
+        "prod rdp",
+        "rdppricingdb",
+        "rdptxn"
+      ]
+    },
+    {
+      "priority": 88,
+      "module": "Account Management",
+      "type_of_issue": "search Issue",
+      "keywords": [
+        "account not charged off",
+        "account locked"
+      ]
+    },
+    {
+      "priority": 88,
+      "module": "Dashboard",
+      "type_of_issue": "One Time Issue",
+      "keywords": [
+        "racpad dashboard",
+        "home screen issue",
+        "home page issue",
+        "main screen missing",
+        "landing page issue",
+        "missing customer service option",
+        "cannot see dashboard",
+        "dashboard not loading",
+        "dashboard error",
+        "home menu",
+        "racpad home"
+      ]
+    },
+    {
+      "priority": 78,
+      "module": "Reporting",
+      "type_of_issue": "Report Request",
+      "keywords": [
+        "collection report",
+        "inventory report",
+        "sales report",
+        "eom report",
+        "end of month report",
+        "weekly report",
+        "monthly report",
+        "daily activity report",
+        "report not generating",
+        "report not loading",
+        "report issue",
+        "report missing",
+        "reports not showing",
+        "report discrepancy",
+        "audit report",
+        "transaction report"
+      ]
+    },
+    {
+      "priority": 93,
+      "module": "Customer",
+      "type_of_issue": "Customer Issue",
+      "keywords": [
+        "customer order missing",
+        "missing customer order",
+        "order not showing",
+        "order not visible",
+        "order missing",
+        "customer orders not showing"
+      ]
+    },
+    {
+      "priority": 93,
+      "module": "Customer",
+      "type_of_issue": "Promo issue",
+      "keywords": [
+        "missing promo code",
+        "promo code missing",
+        "promo code not showing",
+        "promo code not available",
+        "promo not showing",
+        "promo code issue",
+        "missing promo",
+        "promo missing",
+        "promotional code missing",
+        "club code",
+        "promo code expired"
+      ]
+    },
+    {
+      "priority": 91,
+      "module": "Customer",
+      "type_of_issue": "One Time Issue",
+      "keywords": [
+        "salesperson dropdown",
+        "salesperson not showing",
+        "salesperson issue",
+        "sales person dropdown",
+        "sales rep dropdown",
+        "employee dropdown",
+        "coworker dropdown",
+        "co-worker dropdown",
+        "assigned to dropdown"
+      ]
+    },
+    {
+      "priority": 91,
+      "module": "Customer",
+      "type_of_issue": "Payment Query",
+      "keywords": [
+        "fee discrepancy"
+      ]
+    },
+    {
+      "priority": 91,
+      "module": "Customer",
+      "type_of_issue": "One Time Issue",
+      "keywords": [
+        "intellicheck",
+        "intelli check",
+        "id verification",
+        "id upload",
+        "unable to upload id",
+        "id scan",
+        "document verification"
+      ]
+    },
+    {
+      "priority": 89,
+      "module": "Customer",
+      "type_of_issue": "Customer level change request",
+      "keywords": [
+        "customer level change",
+        "customer level upgrade",
+        "customer level downgrade",
+        "change customer level",
+        "update customer level",
+        "customer level request",
+        "customer level missing"
+      ]
+    },
+    {
+      "priority": 89,
+      "module": "Customer",
+      "type_of_issue": "One Time Issue",
+      "keywords": [
+        "de declined",
+        "de shows declined",
+        "de decision",
+        "online declined",
+        "decision engine",
+        "declined by de",
+        "digital engagement declined"
+      ]
+    },
+    {
+      "priority": 87,
+      "module": "Customer",
+      "type_of_issue": "Customer information issue",
+      "keywords": [
+        "customer address",
+        "customer profile update",
+        "customer name update",
+        "customer phone update",
+        "customer search issue",
+        "cannot search customer",
+        "customer merge",
+        "customer not found",
+        "duplicate customer",
+        "verification link",
+        "unable to save customer",
+        "customer income",
+        "sales lead",
+        "salesforce lead"
+      ]
+    },
+    {
+      "priority": 90,
+      "module": "Payment",
+      "type_of_issue": "Chargeback",
+      "keywords": [
+        "cccb",
+        "charge back",
+        "charge-back",
+        "customer charge back",
+        "credit card chargeback"
+      ]
+    },
+    {
+      "priority": 88,
+      "module": "Agreement",
+      "type_of_issue": "Agreement Issue",
+      "keywords": [
+        "loaner agreement",
+        "on loaner",
+        "loaner unit",
+        "put on loaner",
+        "agree loaner"
+      ]
+    },
+    {
+      "priority": 91,
+      "module": "Agreement",
+      "type_of_issue": "Business Logic Error",
+      "keywords": [
+        "rac exchange",
+        "racexchange",
+        "rac-exchange",
+        "exchange item",
+        "exchange agreement",
+        "exchange process"
+      ],
+      "description": "RAC Exchange - Agreement lifecycle feature"
+    },
+    {
+      "priority": 87,
+      "module": "Customer",
+      "type_of_issue": "Data Sync / Integration Failure",
+      "keywords": [
+        "benefits plus",
+        "benefits+",
+        "benefit plus",
+        "benefits plus not updating",
+        "benefits plus not reflecting",
+        "benefits plus store assignment",
+        "bp not updating",
+        "unable to add benefit plus",
+        "benefits plus not activating",
+        "will not let me activate benefits plus",
+        "unable to activate benefits plus",
+        "benefit plus error"
+      ],
+      "description": "Benefits Plus customer service feature — merged unique keywords from duplicate rule"
+    },
+    {
+      "priority": 84,
+      "module": "Store",
+      "type_of_issue": "Access / Permission Issue",
+      "keywords": [
+        "pin management",
+        "pin reset",
+        "store pin",
+        "employee pin",
+        "manager pin",
+        "pin not working",
+        "reset pin",
+        "drop reconciliation",
+        "drop count",
+        "safe drop",
+        "dap",
+        "daily activity plan",
+        "route management",
+        "route assign"
+      ],
+      "description": "Store PIN management, drop reconciliation, route management"
+    },
+    {
+      "priority": 108,
+      "module": "Inventory",
+      "type_of_issue": "Switch Out Issue",
+      "description": "Switch out related issues",
+      "keywords": [
+        "switch out",
+        "switchout",
+        "pending switch out",
+        "stuck in switch out",
+        "cancel switch out",
+        "switch-out completed",
+        "unable to confirm switch out",
+        "inventory stuck in switch out",
+        "item stuck in switch out",
+        "void/switch out",
+        "switch out issue"
+      ]
+    },
+    {
+      "priority": 108,
+      "module": "Agreement",
+      "type_of_issue": "Confirm delivery Issue",
+      "description": "Delivery confirmation issues - unable to confirm delivery in RACPAD, often due to inactive customer phone or agreement issue",
+      "keywords": [
+        "confirm delivery",
+        "unable to confirm delivery",
+        "delivery confirmation",
+        "confirm the delivery",
+        "pending delivery confirmation",
+        "unable to confirm delivery after",
+        "unable to confirm delivery due to",
+        "unable to confirm delivery and process",
+        "confirm delivery on the tablet",
+        "delivery not confirmed",
+        "can not confirm delivery",
+        "cannot confirm delivery",
+        "confirm delivery error",
+        "wont let us confirm the delivery",
+        "won't let us confirm the delivery",
+        "will not let us confirm delivery",
+        "not letting confirm delivery",
+        "confirm delivery the agreement"
+      ]
+    },
+    {
+      "priority": 106,
+      "module": "Payment",
+      "type_of_issue": "AutoPay",
+      "description": "AutoPay related issues",
+      "keywords": [
+        "autopay",
+        "auto pay",
+        "auto-pay",
+        "autopayment",
+        "ap deducted on unscheduled",
+        "club payment deducted",
+        "remove the agreement from autopay",
+        "deducted on unscheduled date",
+        "autopay deducted",
+        "autopay issue"
+      ]
+    },
+    {
+      "priority": 106,
+      "module": "Payment",
+      "type_of_issue": "Payment reversal",
+      "description": "Payment reversal and refund issues",
+      "keywords": [
+        "payment reversal",
+        "reverse payment",
+        "unable to reverse payment",
+        "payment getting refunded",
+        "customer has not received refund",
+        "reverse the payment",
+        "payment refund",
+        "unable to reverse the payment",
+        "refund not received",
+        "process customer refund"
+      ]
+    },
+    {
+      "priority": 106,
+      "module": "Customer",
+      "type_of_issue": "Customer Login Issue (EXT)",
+      "description": "Customer external login/link issues",
+      "keywords": [
+        "unable to link the agreement",
+        "customer login issue",
+        "login issue",
+        "customer unable to login",
+        "customer login",
+        "unable to log in to racpad",
+        "cannot log in to racpad"
+      ]
+    },
+    {
+      "priority": 105,
+      "module": "Store",
+      "type_of_issue": "Store Access",
+      "description": "Store user access and permission issues",
+      "keywords": [
+        "store access",
+        "user having access to old stores",
+        "user missing access for old store",
+        "limited access lowel role",
+        "limited access lower role",
+        "access to old stores in racpad",
+        "seeing old store in drop down",
+        "old store in dropdown",
+        "stores missing in dropdown"
+      ]
+    },
+    {
+      "priority": 105,
+      "module": "Store",
+      "type_of_issue": "Drop reconciliation",
+      "description": "Cash drop and reconciliation issues",
+      "keywords": [
+        "drop reconciliation",
+        "drop recon",
+        "cash drop",
+        "overshort cash",
+        "over/short",
+        "over short",
+        "drop reconciliation discrepancy",
+        "drop reconciliation timing",
+        "perform drop reconciliation",
+        "correct over/short amount",
+        "final drop cannot",
+        "print cash drop receipt",
+        "bad display",
+        "no drop found"
+      ]
+    },
+    {
+      "priority": 105,
+      "module": "Store",
+      "type_of_issue": "PIN reset",
+      "description": "PIN reset and management requests",
+      "keywords": [
+        "pin reset",
+        "reset pin",
+        "pin change",
+        "change pin",
+        "pin management",
+        "reset the pin",
+        "pin not working",
+        "pin code error",
+        "4 digits pin code error",
+        "pin does not work",
+        "racpad pin",
+        "pin issue",
+        "need pin",
+        "need racpad pin"
+      ]
+    },
+    {
+      "priority": 105,
+      "module": "Agreement",
+      "type_of_issue": "DQ-Agreement",
+      "description": "Data quality issues for agreements",
+      "keywords": [
+        "active agreement mismatch",
+        "dq agreement",
+        "dq-agreement",
+        "agreement count mismatch",
+        "agreement data quality",
+        "anow agreements and inventory closure"
+      ]
+    },
+    {
+      "priority": 105,
+      "module": "Inventory",
+      "type_of_issue": "DQ-Inventory",
+      "description": "Data quality issues for inventory",
+      "keywords": [
+        "active inventory mismatch",
+        "dq inventory",
+        "dq-inventory",
+        "inventory count mismatch",
+        "inventory data quality",
+        "racdb vs entdb count"
+      ]
+    },
+    {
+      "priority": 103,
+      "module": "Inventory",
+      "type_of_issue": "Cancel the RMS PO",
+      "description": "Cancel or close an RMS Purchase Order",
+      "keywords": [
+        "cancel rms po",
+        "cancel the rms po",
+        "rms po cancellation",
+        "close the rms po",
+        "rms po needs to be cancelled",
+        "cancel po",
+        "close po",
+        "close the po",
+        "close the po numbers",
+        "please close po",
+        "remove po",
+        "please remove po",
+        "po needs to be cancelled",
+        "po needs to be closed",
+        "get these pos",
+        "getting these pos",
+        "pos off my inventory",
+        "po's off my inventory",
+        "old po",
+        "these pos are",
+        "po sitting on inventory",
+        "po no longer valid",
+        "pos no longer valid",
+        "po from 20"
+      ]
+    },
+    {
+      "priority": 103,
+      "module": "Inventory",
+      "type_of_issue": "Unable to reverse PO",
+      "description": "Unable to reverse a Purchase Order",
+      "keywords": [
+        "unable to reverse po",
+        "reverse po",
+        "po reversal",
+        "cannot reverse po",
+        "po cannot be reversed"
+      ]
+    },
+    {
+      "priority": 100,
+      "module": "Inventory",
+      "type_of_issue": "PO related issue",
+      "description": "General PO related issues",
+      "keywords": [
+        "model is missing in po",
+        "unable to select and accept items in po",
+        "already received po but details are not populating",
+        "acima inventory receiving",
+        "provide manual po option",
+        "query on acima po",
+        "acima po",
+        "po related issue",
+        "items in po not showing"
+      ]
+    },
+    {
+      "priority": 100,
+      "module": "Agreement",
+      "type_of_issue": "RAC exchange",
+      "description": "RAC exchange related issues",
+      "keywords": [
+        "rac exchange",
+        "issue with rac exchange",
+        "customer wants to cancel the rac exchange",
+        "query on rac exchange",
+        "exchange agreement",
+        "exchange item",
+        "rac exchange issue"
+      ]
+    },
+    {
+      "priority": 100,
+      "module": "Payment",
+      "type_of_issue": "Chargeback",
+      "description": "Chargeback related issues",
+      "keywords": [
+        "chargeback",
+        "charge back",
+        "incorrect charge back",
+        "missing chargebacks",
+        "chargeback request",
+        "cccb",
+        "chargeback added",
+        "incorrect chargeback"
+      ]
+    },
+    {
+      "priority": 100,
+      "module": "Inventory",
+      "type_of_issue": "Chargeoff",
+      "description": "Charge-off related issues",
+      "keywords": [
+        "chargeoff",
+        "charge off",
+        "charged off",
+        "charge-off",
+        "unable to chargeoff",
+        "chargeoff account",
+        "update the chargeoff_date",
+        "change the status of the item to charged off",
+        "change status from charged off to rent ready",
+        "need help with changing status from charged off",
+        "using the suspense amount"
+      ]
+    },
+    {
+      "priority": 102,
+      "module": "Agreement",
+      "type_of_issue": "Agreement Void Issue",
+      "description": "Agreement void related issues",
+      "keywords": [
+        "unable to void the agreement",
+        "void the agreement",
+        "require assistance in voiding agreement",
+        "unable to void",
+        "agreement void",
+        "void agreements",
+        "unable to void as the customer is on legal hold",
+        "void as store is getting closed"
+      ]
+    },
+    {
+      "priority": 100,
+      "module": "Agreement",
+      "type_of_issue": "Agreement Transfer Issue",
+      "description": "Agreement transfer issues",
+      "keywords": [
+        "unable to transfer the agreement",
+        "agreement transfer",
+        "transfer the agreement",
+        "transfer that amount to another agreement",
+        "cancel 1 agreement and transfer",
+        "agreement transfer issue"
+      ]
+    },
+    {
+      "priority": 100,
+      "module": "Agreement",
+      "type_of_issue": "Agreement Creation Issue",
+      "description": "Agreement creation issues",
+      "keywords": [
+        "unable to create an agreement",
+        "unable to create agreement",
+        "next button greyed out when creating agreement",
+        "customer order agreement not completing",
+        "unable to create agreement due to incorrect price",
+        "unable to create agreement without using promo code",
+        "cannot convert loaner agreement to regular agreement",
+        "agreement creation issue"
+      ]
+    },
+    {
+      "priority": 100,
+      "module": "Agreement",
+      "type_of_issue": "Agreement Status",
+      "description": "Agreement status issues",
+      "keywords": [
+        "agreement shows as active even though it is pif",
+        "unable to return the agreement",
+        "update the agreement status as charged off",
+        "agreement description is showing incorrect after switch out",
+        "agreement status",
+        "reinstating the agreement",
+        "unable to reinstate the agreement"
+      ]
+    },
+    {
+      "priority": 100,
+      "module": "Inventory",
+      "type_of_issue": "Inventory Transfer Issue",
+      "description": "Inventory transfer issues",
+      "keywords": [
+        "inventory transfer",
+        "transfer the item",
+        "item assigned to different store",
+        "coworker accidently transferred the item to wrong store",
+        "coworker transferred the item",
+        "transfer the item back",
+        "transfer item back",
+        "item transferred to wrong store"
+      ]
+    },
+    {
+      "priority": 98,
+      "module": "Inventory",
+      "type_of_issue": "Inventory Status Issue",
+      "description": "Inventory status change issues",
+      "keywords": [
+        "change the item status",
+        "item status change",
+        "update the item status to rent",
+        "change inventory status",
+        "not rent ready to on rent",
+        "item into service",
+        "service idle to not rent ready",
+        "item showing in exception despite being delivered",
+        "unable to close the service request",
+        "unable to change the inventory status",
+        "issue with inventory status",
+        "change the status of the item from",
+        "change item status from rent-ready to on-rent",
+        "unable to take the item out of service",
+        "unable to reinstate the item"
+      ]
+    },
+    {
+      "priority": 98,
+      "module": "Inventory",
+      "type_of_issue": "Inventory Mismatch",
+      "description": "Inventory count or data mismatch",
+      "keywords": [
+        "inventory mismatch",
+        "mismatch in inventory",
+        "racpad inventory mismatch",
+        "inventory not matching"
+      ]
+    },
+    {
+      "priority": 98,
+      "module": "Operations",
+      "type_of_issue": "2 way sync",
+      "description": "2-way sync integration issues",
+      "keywords": [
+        "2 way sync",
+        "two way sync",
+        "2way sync",
+        "create-inventory-activity-log",
+        "serial number not reflecting in racpad",
+        "emily not reflecting in racpad",
+        "updating serial number in emily but not reflecting"
+      ]
+    },
+    {
+      "priority": 98,
+      "module": "Reporting",
+      "type_of_issue": "EOM",
+      "description": "End of Month / End of Year reporting tasks",
+      "keywords": [
+        "month end reporting",
+        "month end",
+        "end of month",
+        "eoy inventory report",
+        "end of year inventory",
+        "month end close",
+        "eom report",
+        "eoy report",
+        "month end task"
+      ]
+    },
+    {
+      "priority": 98,
+      "module": "Payment",
+      "type_of_issue": "Receipt Reversal Issue",
+      "description": "Receipt reversal issues",
+      "keywords": [
+        "receipt reversal",
+        "receipt reversal for charged off",
+        "receipt reversal issue",
+        "reversal of receipt",
+        "not nullifying the charge off date"
+      ]
+    },
+    {
+      "priority": 97,
+      "module": "Agreement",
+      "type_of_issue": "Agreement delivery Issue",
+      "description": "Agreement delivery issues",
+      "keywords": [
+        "clicking epo and proceeding to delivery agreement",
+        "agreement delivery report",
+        "epo and proceeding to delivery",
+        "agreement delivery issue"
+      ]
+    },
+    {
+      "priority": 95,
+      "module": "Payment",
+      "type_of_issue": "Receipt Mismatch",
+      "description": "Receipt amount or data mismatch",
+      "keywords": [
+        "receipt mismatch",
+        "receipt not matching",
+        "receipt showing incorrect price",
+        "receipt incorrect",
+        "receipts not matching"
+      ]
+    },
+    {
+      "priority": 95,
+      "module": "Customer",
+      "type_of_issue": "Customer Mismatch",
+      "description": "Customer record mismatch",
+      "keywords": [
+        "customer mismatch",
+        "customer record mismatch",
+        "mismatch in customer"
+      ]
+    },
+    {
+      "priority": 95,
+      "module": "Customer",
+      "type_of_issue": "Merge Customer",
+      "description": "Customer merge requests",
+      "keywords": [
+        "merge customer",
+        "merge the customer",
+        "merge customer details",
+        "duplicate customer merge",
+        "merge the item number"
+      ]
+    },
+    {
+      "priority": 95,
+      "module": "Payment",
+      "type_of_issue": "Payment mode Issue",
+      "description": "Payment processed in wrong mode/type",
+      "keywords": [
+        "epo payment incorrectly processed as rental payment",
+        "payment mode issue",
+        "wrong payment mode",
+        "payment processed as wrong type",
+        "payment mode"
+      ]
+    },
+    {
+      "priority": 95,
+      "module": "Payment",
+      "type_of_issue": "Payment issue",
+      "description": "General payment issues",
+      "keywords": [
+        "customer charged multiple time",
+        "charged multiple times",
+        "cw incorrectly processed payment of other customer",
+        "wrong account was paid off"
+      ]
+    },
+    {
+      "priority": 95,
+      "module": "Payment",
+      "type_of_issue": "Payment Error",
+      "description": "Payment processing errors",
+      "keywords": [
+        "card payment failure",
+        "unable to take initial payment",
+        "unable to accept initial payment",
+        "payment not successful",
+        "unable to proceed with payment",
+        "unable to take the initial payment",
+        "amount mismatch error on initial payment"
+      ]
+    },
+    {
+      "priority": 92,
+      "module": "Payment",
+      "type_of_issue": "Tax Issue",
+      "description": "Tax calculation or display issues",
+      "keywords": [
+        "incorrect sales tax",
+        "sales tax issue",
+        "tax issue",
+        "maine sales tax",
+        "tax variance",
+        "tax mismatch",
+        "ldw tax getting added",
+        "ldw tax"
+      ]
+    },
+    {
+      "priority": 90,
+      "module": "Operations",
+      "type_of_issue": "Pricing Issue",
+      "description": "Pricing display or calculation issues",
+      "keywords": [
+        "incorrect pricing",
+        "pricing issue",
+        "item price displaying incorrectly",
+        "current price tag is incorrect",
+        "something went wrong when getting the price",
+        "new price tags not reflecting",
+        "incorrect epo price",
+        "price shows more",
+        "incorrect agreement rate"
+      ]
+    },
+    {
+      "priority": 88,
+      "module": "Operations",
+      "type_of_issue": "Pricing request",
+      "description": "Pricing update or change requests",
+      "keywords": [
+        "publish the pricing",
+        "price change request",
+        "query on the pricing file",
+        "pricing file uploaded",
+        "remove clearance from pricing",
+        "pricing request",
+        "remove item from clearance",
+        "pricing db"
+      ]
+    },
+    {
+      "priority": 88,
+      "module": "Agreement",
+      "type_of_issue": "Promo issue",
+      "description": "Promotional code or discount issues",
+      "keywords": [
+        "processing fee override fails when promo code is applied",
+        "trifecta promotion missing",
+        "promo issue",
+        "promo code not working",
+        "promo not applying",
+        "promotion issue",
+        "trifecta"
+      ]
+    },
+    {
+      "priority": 85,
+      "module": "Operations",
+      "type_of_issue": "Promo request",
+      "description": "Promotional configuration change requests",
+      "keywords": [
+        "request to change the promo name",
+        "promo request",
+        "promo name change"
+      ]
+    },
+    {
+      "priority": 85,
+      "module": "Reporting",
+      "type_of_issue": "Account Report Request",
+      "description": "Account report generation requests",
+      "keywords": [
+        "generating detailed account report",
+        "account report",
+        "detail account report",
+        "detailed account report",
+        "account report request"
+      ]
+    },
+    {
+      "priority": 83,
+      "module": "Reporting",
+      "type_of_issue": "Report Request",
+      "description": "Report generation requests",
+      "keywords": [
+        "costed report",
+        "acima report",
+        "report request",
+        "gaap depreciation",
+        "accrued liability",
+        "inventory depreciation report"
+      ]
+    },
+    {
+      "priority": 83,
+      "module": "Reporting",
+      "type_of_issue": "Report access",
+      "description": "Report access issues",
+      "keywords": [
+        "unable to access daily reports",
+        "report access",
+        "reports not loading",
+        "daily reports access"
+      ]
+    },
+    {
+      "priority": 83,
+      "module": "Reporting",
+      "type_of_issue": "Daily Report Issue",
+      "description": "Daily report mismatch or issues",
+      "keywords": [
+        "mismatch in daily report manager route counts",
+        "daily report mismatch",
+        "daily report issue",
+        "daily report manager route"
+      ]
+    },
+    {
+      "priority": 83,
+      "module": "Store",
+      "type_of_issue": "Menu Permission Access",
+      "description": "Menu or tab permission access issues",
+      "keywords": [
+        "operations tab access",
+        "menu access",
+        "pricing menu access",
+        "menu permission",
+        "operations tab",
+        "menu permission access",
+        "tab access"
+      ]
+    },
+    {
+      "priority": 80,
+      "module": "Customer",
+      "type_of_issue": "search Issue",
+      "description": "Search functionality issues",
+      "keywords": [
+        "cannot search customer by name",
+        "search issue",
+        "no results found for customer record check",
+        "unable to search not rent ready items",
+        "customer search not working"
+      ]
+    },
+    {
+      "priority": 78,
+      "module": "Store",
+      "type_of_issue": "Daily task",
+      "description": "Daily store tasks",
+      "keywords": [
+        "daily task",
+        "daily store task",
+        "day to day task",
+        "bad display",
+        "overshort"
+      ]
+    },
+    {
+      "priority": 78,
+      "module": "Operations",
+      "type_of_issue": "Monitoring",
+      "description": "System monitoring alerts",
+      "keywords": [
+        "monitoring",
+        "system monitoring",
+        "alert monitoring",
+        "monitoring issue"
+      ]
+    },
+    {
+      "priority": 75,
+      "module": "Customer",
+      "type_of_issue": "Customer level change request",
+      "description": "Customer level change requests",
+      "keywords": [
+        "customer level change request",
+        "level change",
+        "customer level change",
+        "change customer level"
+      ]
+    },
+    {
+      "priority": 75,
+      "module": "Store",
+      "type_of_issue": "Training Issue",
+      "description": "Training-related issues",
+      "keywords": [
+        "level 1 loyalty customer unable to add phone",
+        "training issue",
+        "user training",
+        "coworker training",
+        "cw needs training"
+      ]
+    },
+    {
+      "priority": 75,
+      "module": "Operations",
+      "type_of_issue": "Duplicate ticket",
+      "description": "Duplicate incident tickets",
+      "keywords": [
+        "duplicate ticket",
+        "duplicate incident",
+        "duplicate request"
+      ]
+    },
+    {
+      "priority": 75,
+      "module": "Customer",
+      "type_of_issue": "Duplicate customers record",
+      "description": "Duplicate customer records",
+      "keywords": [
+        "duplicate customers record",
+        "duplicate customer",
+        "duplicate customer record"
+      ]
+    },
+    {
+      "priority": 75,
+      "module": "Operations",
+      "type_of_issue": "Intermittent Issue",
+      "description": "Intermittent or sporadic errors",
+      "keywords": [
+        "unable to fetch the data error",
+        "intermittent issue",
+        "intermittent error",
+        "sporadic issue",
+        "application is temporarily unavailable"
+      ]
+    },
+    {
+      "priority": 72,
+      "module": "Operations",
+      "type_of_issue": "One Time Issue",
+      "description": "One-time or ad-hoc issues",
+      "keywords": [
+        "unable to submit inventory",
+        "screen not loading",
+        "one time issue",
+        "one time fix",
+        "one time data fix",
+        "one time"
+      ]
+    },
+    {
+      "priority": 70,
+      "module": "Customer Service",
+      "type_of_issue": "Query",
+      "description": "General query / information requests",
+      "keywords": [
+        "query on amount calculation",
+        "customer unable to view the agreement",
+        "query on who e-sign",
+        "query on dof",
+        "query on text to pay"
+      ]
+    }
+  ]
+}
