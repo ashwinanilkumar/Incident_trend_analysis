@@ -3274,14 +3274,6 @@ def _render_historical_tab():
     """Historical Training Data management tab."""
     # === HISTORICAL DATA MANAGEMENT SECTION ===
 
-    # ── Show any pending save result as a toast popup (bottom-right corner) ──
-    _save_result = st.session_state.pop("hist_save_result", None)
-    if _save_result:
-        if _save_result["type"] == "success":
-            st.toast(_save_result["message"], icon="✅")
-        else:
-            st.toast(_save_result["message"], icon="❌")
-
     st.markdown("---")
     st.subheader("📂 Manage Historical Training Data")
     st.markdown(
@@ -3639,6 +3631,14 @@ def _render_historical_tab():
                                 "message": f"❌ Failed to save `{_sname}`: {_save_err}",
                             }
                         st.rerun()
+
+                # ── Show save result right below the button ──────────────────
+                _save_result = st.session_state.pop("hist_save_result", None)
+                if _save_result:
+                    if _save_result["type"] == "success":
+                        st.success(_save_result["message"])
+                    else:
+                        st.error(_save_result["message"])
 
         except Exception as _hex:
             st.error(f"Error reading uploaded file: {_hex}")
