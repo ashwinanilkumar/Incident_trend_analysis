@@ -3274,13 +3274,13 @@ def _render_historical_tab():
     """Historical Training Data management tab."""
     # === HISTORICAL DATA MANAGEMENT SECTION ===
 
-    # ── Show any pending save result (persisted across the rerun) ───────────
+    # ── Show any pending save result as a toast popup (bottom-right corner) ──
     _save_result = st.session_state.pop("hist_save_result", None)
     if _save_result:
         if _save_result["type"] == "success":
-            st.success(_save_result["message"])
+            st.toast(_save_result["message"], icon="✅")
         else:
-            st.error(_save_result["message"])
+            st.toast(_save_result["message"], icon="❌")
 
     st.markdown("---")
     st.subheader("📂 Manage Historical Training Data")
