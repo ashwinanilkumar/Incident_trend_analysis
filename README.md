@@ -44,10 +44,10 @@ Users can review, correct, and confirm classifications inline. Every correction 
 | **Learned corrections** | Corrections are saved and applied to future classifications (fuzzy match + auto-promotion to rules) |
 | **AI Review** | Calibrated SVM second-opinion reviewer promotes low/medium confidence incidents |
 | **Semantic Review** | Neural language model (sentence-transformers) validates all incidents for plausibility |
-| **Trend Comparison** | Compare 2–3 time-period dumps side by side with interactive charts |
+| **Trend Comparison** | Compare 2–3 time-period dumps side by side with interactive charts (case-insensitive matching) |
 | **BigPanda Dashboard** | Dedicated section showing BigPanda incidents broken down by service/application |
 | **Excel Export** | Download classified results as a formatted .xlsx with all classification metadata |
-| **Historical Data Management** | Upload and manage training data that improves the ML model |
+| **Historical Data Management** | Upload and manage training data; novel module/type values are auto-registered and included in training |
 | **Auto-promoted Rules** | Patterns seen ≥3 times in corrections are automatically promoted to permanent rules |
 
 ---
@@ -158,14 +158,28 @@ streamlit run app.py
 
 ### 2. Trend Comparison Tab
 
-- Upload 2 or 3 time-period Excel files (pre-classified or raw).
-- View side-by-side comparison charts showing volume changes by module and issue type.
+- Upload **2 or 3** already-classified Excel files (output from the Classification Tool).
+- Label each period (e.g. "Month 1", "April") using the text inputs — **labels must be unique**.
+- View side-by-side comparison charts:
+  - **Module Distribution** — incident counts per module per period.
+  - **Type Of Issue Distribution (Top 20)** — top 20 issue types across periods.
+  - **Module Drill-down** — select a module to see its issue type breakdown; chart sorted by total count across all periods.
+  - **Period-over-Period Change** — diverging bar chart showing which modules grew or shrank.
+  - **Confidence Distribution** — High/Medium/Low counts per period.
+  - **Classification Method Distribution** — donut charts per period.
+  - **Top 15 Recurring Issues** — most frequent Module → Type combinations.
+  - **New / Resolved Issues** — issue types that appeared or disappeared between periods.
+- Module and Type Of Issue values are matched **case-insensitively**, so `"RACPAD access not available"` and `"Racpad Access Not Available"` are treated as the same category.
+- Download all comparison data as a single Excel file.
 
 ### 3. Manage Training Data Tab
 
 - Upload new classified Excel files to the historical training set.
-- Remove outdated training files.
-- Rebuild ML models after adding new data.
+- Module column values are **automatically normalized** (e.g. `payment` → `Payment`, `report` → `Reporting`) before validation — no need to pre-clean the data.
+- Type Of Issue values are matched **case-insensitively** against the known list.
+- Any genuinely novel Module or Type Of Issue values are **auto-registered** into `rules_config.json` and included in similarity matching and ML training.
+- A success or failure message appears directly below the Save button after each upload.
+- Saving a new file clears the model cache — models retrain automatically on the next classification run.
 
 ---
 
@@ -249,6 +263,8 @@ Place classified Excel files (with `Module` and `Type Of Issue` columns populate
 - `Description`
 - `Module`
 - `Type Of Issue`
+
+> **Note:** Module values do not need to be perfectly cased. The app normalizes `payment` → `Payment`, `report` → `Reporting`, etc. before training. Novel values not in the predefined list are still included in training and auto-registered for use in the classification dropdowns.
 
 ---
 
