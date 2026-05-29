@@ -198,7 +198,7 @@ def combine_text(row):
 def load_synonyms(synonyms_file=SYNONYMS_FILE):
     """Load synonym dictionary and custom expansions (cached — file rarely changes)."""
     if os.path.exists(synonyms_file):
-        with open(synonyms_file, "r", encoding="utf-8") as f:
+        with open(synonyms_file, "r", encoding="utf-8-sig") as f:
             return json.load(f)
     return {"synonyms": {}, "custom_expansions": {}}
 
@@ -260,7 +260,7 @@ def fuzzy_match_keyword(text, keywords, threshold=FUZZY_THRESHOLD):
 def load_corrections(corrections_file=CORRECTIONS_FILE):
     """Load correction history, deduplicating exact incident-number entries (latest wins)."""
     if os.path.exists(corrections_file):
-        with open(corrections_file, "r", encoding="utf-8") as f:
+        with open(corrections_file, "r", encoding="utf-8-sig") as f:
             data = json.load(f)
         all_corrections = data.get("corrections", [])
         # For the same incident_number submitted multiple times, keep only the latest.
@@ -348,7 +348,7 @@ def load_promoted_rules(corrections_file=CORRECTIONS_FILE):
     These rules are dynamically generated when 3+ corrections share the same pattern.
     """
     if os.path.exists(corrections_file):
-        with open(corrections_file, "r", encoding="utf-8") as f:
+        with open(corrections_file, "r", encoding="utf-8-sig") as f:
             data = json.load(f)
         return data.get("promoted_rules", [])
     return []
@@ -381,7 +381,7 @@ def maybe_promote_to_rule(corrections):
     promoted_map = {}  # (module, type_of_issue) -> rule dict
     if os.path.exists(CORRECTIONS_FILE):
         try:
-            with open(CORRECTIONS_FILE, "r", encoding="utf-8") as f:
+            with open(CORRECTIONS_FILE, "r", encoding="utf-8-sig") as f:
                 data = json.load(f)
             for pr in data.get("promoted_rules", []):
                 key = (pr.get("module", ""), pr.get("type_of_issue", ""))
@@ -525,7 +525,7 @@ def register_custom_taxonomy_value(field: str, value: str) -> bool:
     try:
         config: dict = {}
         if os.path.exists(RULES_FILE):
-            with open(RULES_FILE, "r", encoding="utf-8") as f:
+            with open(RULES_FILE, "r", encoding="utf-8-sig") as f:
                 config = json.load(f)
         existing = [v.strip().lower() for v in config.get(field, [])]
         if value.lower() in existing:
@@ -547,7 +547,7 @@ def register_custom_taxonomy_value(field: str, value: str) -> bool:
 def load_rules(rules_file=RULES_FILE):
     """Load rules from JSON config, sorted by priority (cached — rules rarely change)."""
     if os.path.exists(rules_file):
-        with open(rules_file, "r", encoding="utf-8") as f:
+        with open(rules_file, "r", encoding="utf-8-sig") as f:
             config = json.load(f)
         rules = config.get("rules", [])
         # Sort by priority descending (highest priority matched first)
@@ -2213,12 +2213,25 @@ def _render_comparison_tab():
                     "is this a classified output file from the Classification Tool?"
                 )
             else:
+                # Normalise case so the same value with different casing
+                # isn't counted as two separate categories
+                for _col in ("Module", "Type Of Issue"):
+                    if _col in _df.columns:
+                        _df[_col] = _df[_col].astype(str).str.strip().str.title()
                 dfs[_lbl] = _df
         except Exception as _ex:
             st.error(f"Error reading **{_lbl}**: {_ex}")
 
+    # Duplicate-label guard: if two uploads share the same period label the second
+    # silently overwrites the first in the dict, leaving only one entry.
     if len(dfs) < 2:
-        st.info("\U0001f446 Upload at least **2** classified incident files to start comparing.")
+        if sum(1 for _, _f in [(_lbl1, _file1), (_lbl2, _file2), (_lbl3, _file3)] if _f is not None) >= 2:
+            st.error(
+                "\u26a0\ufe0f **Period labels must be unique.** "
+                "Two or more uploads share the same label — please give each period a different name."
+            )
+        else:
+            st.info("\U0001f446 Upload at least **2** classified incident files to start comparing.")
         return
 
     _labels = list(dfs.keys())
@@ -2262,8 +2275,10 @@ def _render_comparison_tab():
     _type_df   = (
         pd.DataFrame(_type_data)
         .fillna(0).astype(int)
-        .sort_values(_labels[0], ascending=False)
     )
+    # Merge any residual duplicates that differ only in capitalisation
+    _type_df.index = _type_df.index.str.strip().str.title()
+    _type_df = _type_df.groupby(_type_df.index).sum().sort_values(_labels[0], ascending=False)
     st.plotly_chart(
         _horiz_bar(_type_df, "Type Of Issue", "Type of Issue Distribution (Top 20)", top_n=20),
         use_container_width=True,
@@ -2286,8 +2301,10 @@ def _render_comparison_tab():
         _drill_df = (
             pd.DataFrame(_drill)
             .fillna(0).astype(int)
-            .sort_values(_labels[0], ascending=False)
         )
+        # Sort by total across all periods so the chart is useful even when
+        # the first period has 0 incidents for the selected module.
+        _drill_df = _drill_df.loc[_drill_df.sum(axis=1).sort_values(ascending=False).index]
         st.plotly_chart(
             _horiz_bar(_drill_df, "Type Of Issue", f"Issue Types — {_sel_mod}"),
             use_container_width=True,
@@ -2419,7 +2436,7 @@ def _render_comparison_tab():
         _l: (
             _d["Module"].fillna("Unknown").str.strip().str.title()
             + " \u2192 "
-            + _d["Type Of Issue"].fillna("Unknown")
+            + _d["Type Of Issue"].fillna("Unknown").astype(str).str.strip().str.title()
         ).value_counts()
         for _l, _d in dfs.items()
     }
@@ -3581,6 +3598,8 @@ def _render_historical_tab():
             st.error(f"Error reading uploaded file: {_hex}")
             import traceback as _tb
             st.code(_tb.format_exc())
+
+
 def main():
     st.set_page_config(page_title="RACPad Incident Classification", layout="wide")
     st.title("RACPad Incident Trend Analysis - Classification Tool")
