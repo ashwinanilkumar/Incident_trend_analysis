@@ -3435,12 +3435,39 @@ def _render_historical_tab():
                 )
             else:
                 _n_total = len(_hdf)
+
+                # ── Auto-normalize Module column so case variants don't produce
+                # false "unrecognized" warnings. normalize_module() maps
+                # "payment" → "Payment", "report" → "Reporting", etc.
+                _hdf["Module"] = _hdf["Module"].apply(normalize_module)
+
+                # Case-insensitive matching for Type Of Issue: build a lookup
+                # set of all known valid types (lowercased) for comparison.
+                _valid_types_lower = {t.strip().lower(): t for t in VALID_ISSUE_TYPES}
+                # Normalize Type Of Issue: if a case-insensitive match exists, use canonical form
+                def _normalize_type(val):
+                    if pd.isna(val):
+                        return val
+                    stripped = str(val).strip()
+                    key = stripped.lower()
+                    return _valid_types_lower.get(key, stripped)
+                _hdf["Type Of Issue"] = _hdf["Type Of Issue"].apply(_normalize_type)
+
                 _valid_mod_mask  = _hdf["Module"].isin(VALID_MODULES)
                 _valid_type_mask = _hdf["Type Of Issue"].isin(VALID_ISSUE_TYPES)
                 _n_fully_valid   = (_valid_mod_mask & _valid_type_mask).sum()
                 _n_bad_mod       = (~_valid_mod_mask).sum()
                 _n_bad_type      = (~_valid_type_mask).sum()
                 _has_desc        = "Description" in _hdf.columns
+
+                # Auto-register genuinely new (not just case-variant) values so
+                # they appear in dropdowns and are recognized in future sessions.
+                if _n_bad_mod > 0:
+                    for _nv in _hdf[~_valid_mod_mask]["Module"].dropna().unique():
+                        register_custom_taxonomy_value("modules", str(_nv).strip())
+                if _n_bad_type > 0:
+                    for _nv in _hdf[~_valid_type_mask]["Type Of Issue"].dropna().unique():
+                        register_custom_taxonomy_value("issue_types", str(_nv).strip())
 
                 # Summary metrics
                 _mc1, _mc2, _mc3, _mc4 = st.columns(4)
@@ -3454,21 +3481,22 @@ def _render_historical_tab():
                         _hdf[~_valid_mod_mask]["Module"]
                         .dropna().unique().tolist()
                     )
-                    st.warning(
-                        f"⚠️ **{_n_bad_mod}** row(s) have unrecognized Module values: "
+                    st.info(
+                        f"ℹ️ **{_n_bad_mod}** row(s) have novel Module values (auto-registered): "
                         f"`{'`, `'.join(str(x) for x in _bad_mods[:10])}`  \n"
-                        "These rows will still be saved but will be ignored by the "
-                        "similarity matcher and ML classifier."
+                        "These rows **will be included** in similarity matching and ML training. "
+                        "The new values have been added to the known modules list."
                     )
                 if _n_bad_type > 0:
                     _bad_types = (
                         _hdf[~_valid_type_mask]["Type Of Issue"]
                         .dropna().unique().tolist()
                     )
-                    st.warning(
-                        f"⚠️ **{_n_bad_type}** row(s) have unrecognized Type Of Issue values: "
+                    st.info(
+                        f"ℹ️ **{_n_bad_type}** row(s) have novel Type Of Issue values (auto-registered): "
                         f"`{'`, `'.join(str(x) for x in _bad_types[:10])}`  \n"
-                        "These rows will still be saved but will be skipped during training."
+                        "These rows **will be included** in similarity matching and ML training. "
+                        "The new values have been added to the known issue types list."
                     )
                 if not _has_desc:
                     st.info(
