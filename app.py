@@ -3273,6 +3273,15 @@ def _render_classification_tab(
 def _render_historical_tab():
     """Historical Training Data management tab."""
     # === HISTORICAL DATA MANAGEMENT SECTION ===
+
+    # ── Show any pending save result (persisted across the rerun) ───────────
+    _save_result = st.session_state.pop("hist_save_result", None)
+    if _save_result:
+        if _save_result["type"] == "success":
+            st.success(_save_result["message"])
+        else:
+            st.error(_save_result["message"])
+
     st.markdown("---")
     st.subheader("📂 Manage Historical Training Data")
     st.markdown(
@@ -3571,55 +3580,64 @@ def _render_historical_tab():
                             "Overwrite not confirmed. Tick the checkbox above or rename the file."
                         )
                     else:
-                        # Snapshot existing files BEFORE saving (for success message)
-                        _files_before = set(
-                            f for f in os.listdir(HISTORICAL_DIR) if f.endswith(".xlsx")
-                        )
+                        try:
+                            # Snapshot existing files BEFORE saving (for success message)
+                            _files_before = set(
+                                f for f in os.listdir(HISTORICAL_DIR) if f.endswith(".xlsx")
+                            )
 
-                        # Save the new file — existing files are untouched
-                        _save_path = os.path.join(HISTORICAL_DIR, _sname)
-                        with open(_save_path, "wb") as _fw:
-                            _fw.write(_hbytes)
+                            # Save the new file — existing files are untouched
+                            _save_path = os.path.join(HISTORICAL_DIR, _sname)
+                            with open(_save_path, "wb") as _fw:
+                                _fw.write(_hbytes)
 
-                        _files_after = set(
-                            f for f in os.listdir(HISTORICAL_DIR) if f.endswith(".xlsx")
-                        )
-                        _kept = sorted(_files_before - {_sname})
-                        _action = "replaced" if _sname in _files_before else "added"
+                            _files_after = set(
+                                f for f in os.listdir(HISTORICAL_DIR) if f.endswith(".xlsx")
+                            )
+                            _kept = sorted(_files_before - {_sname})
+                            _action = "replaced" if _sname in _files_before else "added"
 
-                        # Clear Streamlit in-memory caches so next run re-reads the folder
-                        load_historical_data.clear()
-                        build_classification_models.clear()
+                            # Clear Streamlit in-memory caches so next run re-reads the folder
+                            load_historical_data.clear()
+                            build_classification_models.clear()
 
-                        # Delete stale on-disk .pkl model/embedding caches only
-                        # (historical .xlsx files are NOT touched)
-                        _n_pkl_deleted = 0
-                        if os.path.exists(CACHE_DIR):
-                            for _pkl_f in os.listdir(CACHE_DIR):
-                                if _pkl_f.endswith(".pkl"):
-                                    try:
-                                        os.remove(os.path.join(CACHE_DIR, _pkl_f))
-                                        _n_pkl_deleted += 1
-                                    except Exception:
-                                        pass
+                            # Delete stale on-disk .pkl model/embedding caches only
+                            # (historical .xlsx files are NOT touched)
+                            _n_pkl_deleted = 0
+                            if os.path.exists(CACHE_DIR):
+                                for _pkl_f in os.listdir(CACHE_DIR):
+                                    if _pkl_f.endswith(".pkl"):
+                                        try:
+                                            os.remove(os.path.join(CACHE_DIR, _pkl_f))
+                                            _n_pkl_deleted += 1
+                                        except Exception:
+                                            pass
 
-                        # Clear models_ready flag so pre-warm banner re-appears
-                        st.session_state.pop("models_ready", None)
+                            # Clear models_ready flag so pre-warm banner re-appears
+                            st.session_state.pop("models_ready", None)
 
-                        _kept_note = (
-                            f"- **{len(_kept)}** existing file(s) preserved: "
-                            f"`{'`, `'.join(_kept)}`  \n"
-                            if _kept else ""
-                        )
-                        st.success(
-                            f"✅ **`{_sname}`** {_action} in `historical/` folder  \n"
-                            f"- **{_n_total:,}** rows {_action} "
-                            f"({_n_fully_valid:,} fully valid)  \n"
-                            f"{_kept_note}"
-                            f"- {_n_pkl_deleted} model cache file(s) cleared  \n"
-                            "- Models will **retrain automatically** on the next "
-                            "classification run."
-                        )
+                            _kept_note = (
+                                f"- **{len(_kept)}** existing file(s) preserved: "
+                                f"`{'`, `'.join(_kept)}`  \n"
+                                if _kept else ""
+                            )
+                            st.session_state["hist_save_result"] = {
+                                "type": "success",
+                                "message": (
+                                    f"✅ **`{_sname}`** {_action} in `historical/` folder  \n"
+                                    f"- **{_n_total:,}** rows {_action} "
+                                    f"({_n_fully_valid:,} fully valid)  \n"
+                                    f"{_kept_note}"
+                                    f"- {_n_pkl_deleted} model cache file(s) cleared  \n"
+                                    "- Models will **retrain automatically** on the next "
+                                    "classification run."
+                                ),
+                            }
+                        except Exception as _save_err:
+                            st.session_state["hist_save_result"] = {
+                                "type": "error",
+                                "message": f"❌ Failed to save `{_sname}`: {_save_err}",
+                            }
                         st.rerun()
 
         except Exception as _hex:
