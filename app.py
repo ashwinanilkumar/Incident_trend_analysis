@@ -320,16 +320,20 @@ def apply_corrections(combined_text, corrections, incident_number=None):
             if str(corr.get("incident_number", "")).strip().upper() == inc_clean:
                 return corr["corrected_module"], corr["corrected_type"], 1.0
 
-    # Pass 2: fuzzy text match on short_description — iterate in reverse so the latest correction wins
+    # Pass 2: fuzzy text match on combined correction text (short_description + description).
+    # Using the full correction text means incidents with rich descriptions match more
+    # accurately against past corrections that also have descriptions stored.
     for corr in reversed(corrections):
-        corr_text = preprocess_text(corr.get("short_description", ""))
+        corr_short = preprocess_text(corr.get("short_description", ""))
+        corr_desc  = preprocess_text(corr.get("description", ""))
+        corr_text  = f"{corr_short} {corr_desc}".strip() if corr_desc else corr_short
         if not corr_text or len(corr_text) < 20:
             continue
         score = fuzz.token_sort_ratio(combined_text, corr_text)
         if score >= 92:
             return corr["corrected_module"], corr["corrected_type"], score / 100.0
 
-    # Pass 3: fuzzy match on full description — lower threshold catches same-pattern incidents
+    # Pass 3: fuzzy match on description alone — lower threshold catches same-pattern incidents
     # even when short descriptions vary (e.g. "RACPAD-" vs "Unable to confirm delivery").
     for corr in reversed(corrections):
         corr_desc = preprocess_text(corr.get("description", ""))
@@ -2698,6 +2702,10 @@ def _render_classification_tab(
                 excel_output, result_df = export_excel(
                     df, classification_df, summary_df, module_summary_df
                 )
+                # Store bytes immediately from this successful export so the
+                # download button always has valid data (avoids a second call
+                # to export_excel via _regen_excel_bytes which could fail).
+                st.session_state["excel_bytes"] = excel_output.getvalue()
 
                 # ── Final: complete banner ────────────────────────────────
                 _elapsed = _time.time() - _t0
@@ -2726,7 +2734,6 @@ def _render_classification_tab(
                 # Reset inline-correction version counters for fresh analysis
                 st.session_state.pop("review_correction_version", None)
                 st.session_state.pop("sem_flag_correction_version", None)
-                _regen_excel_bytes()
 
         except Exception as e:
             st.error(f"Error processing file: {str(e)}")
