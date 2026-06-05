@@ -1,5 +1,73 @@
 # RACPad Incident Trend Analysis — Classification Tool
 
+## Prerequisites — Install Python (one-time, no admin rights required)
+
+> Skip this section if Python is already installed on your machine.
+
+1. Go to **https://www.python.org/downloads/windows/**
+
+2. Under **Stable Releases**, find **Python install manager** and click **Download Windows Installer (64-bit)** to download the Windows Install Manager `.exe`.
+
+3. Once downloaded, **double-click the `.exe`** to launch the installer.
+
+4. On the installer's first screen:
+   - **Uncheck** `Use admin privileges when installing py.exe`
+   - **Keep checked** `Add python.exe to PATH`
+
+5. Click **Install Now** and wait for the installation to complete.
+
+6. Close the installer when done.
+
+> **Minimum required version:** Python 3.10 or newer.
+
+---
+
+## Setup & Installation
+
+### Windows (Recommended — One Click)
+
+1. **Clone or download** this repository to your local machine.
+2. Double-click **`setup.bat`**.
+   - Creates a virtual environment (`venv/`).
+   - Installs all dependencies from `requirements.txt`.
+3. When setup completes, proceed to [Running the App](#running-the-app).
+
+### Manual Setup (any OS)
+
+```bash
+# 1. Create a virtual environment
+python -m venv venv
+
+# 2. Activate it
+#    Windows:
+venv\Scripts\activate
+#    macOS/Linux:
+source venv/bin/activate
+
+# 3. Install dependencies
+pip install -r requirements.txt
+
+# 4. (Optional) Pre-build ML models to avoid first-run delay
+python prebuild_models.py
+```
+
+> **Note:** The `sentence-transformers` library downloads a ~90 MB language model on first use. Ensure internet access on the first run, or pre-download by running the app once.
+
+---
+
+## Running the App
+
+### Windows
+
+Double-click **`run.bat`** — the app opens at [http://localhost:8501](http://localhost:8501).
+
+### Any OS
+
+```bash
+# Activate the virtual environment first, then:
+streamlit run app.py
+```
+
 A Streamlit-based web application that automatically classifies RACPad support incidents into **modules** and **issue types** using a multi-stage hybrid pipeline, with built-in correction feedback, trend comparison, and export capabilities.
 
 ---
@@ -10,6 +78,7 @@ A Streamlit-based web application that automatically classifies RACPad support i
 - [Features](#features)
 - [Tech Stack](#tech-stack)
 - [Project Structure](#project-structure)
+- [Prerequisites — Install Python](#prerequisites--install-python-one-time-no-admin-rights-required)
 - [Setup & Installation](#setup--installation)
 - [Running the App](#running-the-app)
 - [Usage Guide](#usage-guide)
@@ -75,7 +144,7 @@ Incident Trend Analysis/
 ├── corrections.json        # Saved user corrections + auto-promoted rules (auto-generated)
 ├── synonyms.json           # Synonym/keyword expansion dictionary
 ├── requirements.txt        # Python dependencies
-├── setup.bat               # One-click setup script (Windows) — installs Python + venv
+├── setup.bat               # One-click setup script (Windows) — creates venv and installs dependencies
 ├── run.bat                 # Launch script (Windows)
 ├── prebuild_models.py      # Optional: pre-build ML models outside the app
 ├── build_training_data.py  # Utility: build training data from historical files
@@ -89,54 +158,6 @@ Incident Trend Analysis/
 
 ---
 
-## Setup & Installation
-
-### Windows (Recommended — One Click)
-
-1. **Clone or download** this repository to your local machine.
-2. Double-click **`setup.bat`**.
-   - Automatically detects or downloads Python 3.11.
-   - Creates a virtual environment (`venv/`).
-   - Installs all dependencies from `requirements.txt`.
-3. When setup completes, proceed to [Running the App](#running-the-app).
-
-### Manual Setup (any OS)
-
-```bash
-# 1. Create a virtual environment
-python -m venv venv
-
-# 2. Activate it
-#    Windows:
-venv\Scripts\activate
-#    macOS/Linux:
-source venv/bin/activate
-
-# 3. Install dependencies
-pip install -r requirements.txt
-
-# 4. (Optional) Pre-build ML models to avoid first-run delay
-python prebuild_models.py
-```
-
-> **Note:** The `sentence-transformers` library downloads a ~90 MB language model on first use. Ensure internet access on the first run, or pre-download by running the app once.
-
----
-
-## Running the App
-
-### Windows
-
-Double-click **`run.bat`** — the app opens at [http://localhost:8501](http://localhost:8501).
-
-### Any OS
-
-```bash
-# Activate the virtual environment first, then:
-streamlit run app.py
-```
-
----
 
 ## Usage Guide
 

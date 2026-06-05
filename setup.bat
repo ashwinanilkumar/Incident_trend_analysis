@@ -5,78 +5,25 @@ echo ============================================
 echo.
 
 :: ============================================================
-:: STEP 1 — Ensure Python 3.11 is available
+:: STEP 1 — Check Python is available
 :: ============================================================
 
-:: Check 'python' command first
 python --version >nul 2>&1
 if not errorlevel 1 goto :python_found
 
-:: Check 'py' launcher (Windows Python Launcher, often present even
-:: when 'python' is not in PATH)
 py --version >nul 2>&1
 if not errorlevel 1 (
-    :: Create a shim so the rest of the script can use 'python'
     doskey python=py $*
     goto :python_found
 )
 
-:: ── Python not found — download and install silently ────────
-echo Python not found. Downloading Python 3.11 installer...
-echo (This is a one-time download of ~25 MB)
 echo.
-
-set PYTHON_URL=https://www.python.org/ftp/python/3.11.9/python-3.11.9-amd64.exe
-set PYTHON_INSTALLER=%TEMP%\python-3.11.9-amd64.exe
-
-:: Use PowerShell to download (available on all Windows 7+ machines)
-powershell -NoProfile -Command ^
-  "try { Invoke-WebRequest -Uri '%PYTHON_URL%' -OutFile '%PYTHON_INSTALLER%' -UseBasicParsing; exit 0 } catch { Write-Host $_.Exception.Message; exit 1 }"
-
-if errorlevel 1 (
-    echo.
-    echo ERROR: Could not download Python automatically.
-    echo Please install Python 3.11+ manually:
-    echo   1. Go to https://www.python.org/downloads/
-    echo   2. Download Python 3.11.x for Windows
-    echo   3. Run the installer - check "Add Python to PATH"
-    echo   4. Re-run this setup.bat
-    pause
-    exit /b 1
-)
-
-echo Download complete. Installing Python for current user (no admin required)...
-:: InstallAllUsers=0  -> installs for current user only (no admin needed)
-:: PrependPath=1      -> adds Python to user PATH
-:: Include_test=0     -> skips test suite to save space (~200 MB saved)
-:: /quiet             -> no UI
-"%PYTHON_INSTALLER%" /quiet InstallAllUsers=0 PrependPath=1 Include_test=0 Include_launcher=1
-
-if errorlevel 1 (
-    echo.
-    echo ERROR: Python installation failed.
-    echo Your IT policy may block installer execution.
-    echo Please ask IT to install Python 3.11+ or install manually from:
-    echo   https://www.python.org/downloads/
-    pause
-    exit /b 1
-)
-
-:: Add the default user-install path to PATH for this session
-:: (registry PATH update won't be visible until a new shell opens)
-set "PATH=%LOCALAPPDATA%\Programs\Python\Python311;%LOCALAPPDATA%\Programs\Python\Python311\Scripts;%PATH%"
-
-python --version >nul 2>&1
-if errorlevel 1 (
-    echo.
-    echo Python was installed but cannot be found in PATH yet.
-    echo Please close this window, open a new Command Prompt, and run setup.bat again.
-    pause
-    exit /b 1
-)
-
-echo Python installed successfully!
-echo.
+echo ERROR: Python 3.10 or newer is required but was not found.
+echo Please install Python from https://www.python.org/downloads/windows/
+echo   - Check "Add python.exe to PATH" during installation.
+echo Then re-run this setup.bat.
+pause
+exit /b 1
 
 :python_found
 echo Found:
